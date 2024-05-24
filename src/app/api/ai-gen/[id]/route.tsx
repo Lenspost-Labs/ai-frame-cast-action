@@ -33,8 +33,7 @@ const handler = frames(async (ctx) => {
   const ImageID = ctx.state?.ImageID as string;
   const res = await fnGetStatusAPI(ImageID);
   const status = res?.status;
-  return true
+  return true;
 });
-
 
 export const POST = handler;

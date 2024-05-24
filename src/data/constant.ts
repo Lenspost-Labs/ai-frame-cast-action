@@ -21,6 +21,7 @@ export const LENSPOST_HOME_URL = 'https://poster.fun';
 export const LENSPOST_TWITTER_USERNAME = '@Lenspostxyz';
 
 // URLs
+export const tunnelUrl = 'https://fr3vl2gs-3000.inc1.devtunnels.ms';
 export const BACKEND_ENDPOINT = BACKEND_API[ENV as keyof typeof BACKEND_API];
 export const S3_IMAGE_URL = 'https://lenspost.s3.ap-south-1.amazonaws.com';
 export const CDN_IMAGE_URL = 'https://lenspost.b-cdn.net';
