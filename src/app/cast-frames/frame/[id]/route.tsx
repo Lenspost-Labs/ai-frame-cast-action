@@ -18,25 +18,132 @@ const getFrameById = (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/ai-gen`}
-          key="generateButton1"
+          target={`${tunnelUrl}/api/ai-gen`}
+          key="generateButton"
           action="post"
         >
           Generate (1/5)
         </Button>,
         <Button
           target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
-          key="mintButton1"
+          key="mintButton"
           action="post"
         >
           Let&apos;s Mint
         </Button>
       ],
       image: <span>Generate your AI image</span>,
+      textInput: 'Enter your prompt',
       state: { generateCount: 1 }
     };
   } else if (frameId === 2) {
-    return null;
+    return {
+      buttons: [
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="yesButton"
+          action="post"
+        >
+          Yes
+        </Button>,
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="noButton"
+          action="post"
+        >
+          No
+        </Button>
+      ],
+      state: {
+        ...state
+      },
+      image: <span>Add Follow</span>
+    };
+  } else if (frameId === 3) {
+    if (ctx.message.buttonIndex === 1) {
+      state.follow = true;
+    } else if (ctx.message.buttonIndex === 2) {
+      state.follow = false;
+    }
+    return {
+      buttons: [
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="yesButton"
+          action="post"
+        >
+          Yes
+        </Button>,
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="noButton"
+          action="post"
+        >
+          No
+        </Button>
+      ],
+      state: {
+        ...state
+      },
+      image: <span>Add Like</span>
+    };
+  } else if (frameId === 4) {
+    if (ctx.message.buttonIndex === 1) {
+      state.like = true;
+    } else if (ctx.message.buttonIndex === 2) {
+      state.like = false;
+    }
+    return {
+      buttons: [
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="yesButton"
+          action="post"
+        >
+          Yes
+        </Button>,
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="noButton"
+          action="post"
+        >
+          No
+        </Button>
+      ],
+      state: {
+        ...state
+      },
+      image: <span>Add Recast</span>
+    };
+  } else if (frameId === 5) {
+    if (ctx.message.buttonIndex === 1) {
+      state.recast = true;
+    } else if (ctx.message.buttonIndex === 2) {
+      state.recast = false;
+    }
+    return {
+      buttons: [
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="yesButton"
+          action="post"
+        >
+          Submit
+        </Button>,
+        <Button
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          key="noButton"
+          action="post"
+        >
+          Skip
+        </Button>
+      ],
+      textInput: 'Enter External URL (Optional)',
+      image: <span>Add External Link</span>,
+      state: {
+        ...state
+      }
+    };
   } else if (frameId === 6) {
     return {
       buttons: [
@@ -55,7 +162,7 @@ const getFrameById = (frameId: number, ctx: any) => {
       textInput: 'No of Mints'
     };
   } else if (frameId === 7) {
-    const noOfMints = ctx.message.inputText;
+    const noOfMints = ctx.message;
     return {
       buttons: [
         <Button

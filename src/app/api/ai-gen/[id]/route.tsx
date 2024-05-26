@@ -34,7 +34,7 @@ const falGetImageAPI = async (response_url: string) => {
 // @ts-ignore
 const handler = frames(async (ctx) => {
   // @ts-ignore
-  const imageId: string = JSON.parse(ctx?.state).imageId || '';
+  const imageId: string = ctx?.state.imageId || '';
   const res = await fnGetStatusAPI(imageId);
   const status = res?.status;
 
