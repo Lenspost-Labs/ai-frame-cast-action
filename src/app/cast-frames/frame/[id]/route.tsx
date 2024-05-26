@@ -166,9 +166,10 @@ const getFrameById = (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          post_url={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${tunnelUrl}/api/tx-send`}
           key="continueButton4"
-          action="post"
+          action="tx"
         >
           Continue
         </Button>
