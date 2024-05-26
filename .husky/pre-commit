@@ -2,8 +2,8 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # echo '🏗️👷 Styling, testing and building your project before committing'
-#
-# # Check Prettier standards
+
+# Check Prettier standards
 # pnpm run prettier:check ||
 # (
 #     echo '🤢🤮🤢🤮 Its FOKING RAW - Your styling looks disgusting. 🤢🤮🤢🤮
