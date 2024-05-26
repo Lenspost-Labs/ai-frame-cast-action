@@ -8,13 +8,21 @@ import { frames } from '../../frames/frames';
 // @ts-ignore
 const handler = frames(async (ctx) => {
   const frameId = ctx.url.pathname.replace('/cast-frames/frame/', '');
-  return getFrameById(parseInt(frameId), ctx);
+  return await getFrameById(parseInt(frameId), ctx);
 });
 
-const getFrameById = (frameId: number, ctx: any) => {
+const getFrameById = async (frameId: number, ctx: any) => {
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
+  const fid = ctx.message.requesterFid;
   if (frameId === 1) {
+    const address = await fetch(
+      `https://dev.poster.fun/mint/by-fid?fid=${fid}`,
+      {
+        method: 'GET'
+      }
+    );
+    const { publicAddress } = await address.json();
     return {
       buttons: [
         <Button
@@ -32,9 +40,9 @@ const getFrameById = (frameId: number, ctx: any) => {
           Let&apos;s Mint
         </Button>
       ],
+      state: { custodialAddress: publicAddress, generateCount: 1 },
       image: <span>Generate your AI image</span>,
-      textInput: 'Enter your prompt',
-      state: { generateCount: 1 }
+      textInput: 'Enter your prompt'
     };
   } else if (frameId === 2) {
     return {
@@ -162,7 +170,7 @@ const getFrameById = (frameId: number, ctx: any) => {
       textInput: 'No of Mints'
     };
   } else if (frameId === 7) {
-    const noOfMints = ctx.message;
+    const noOfMints = ctx.message.textInput;
     return {
       buttons: [
         <Button

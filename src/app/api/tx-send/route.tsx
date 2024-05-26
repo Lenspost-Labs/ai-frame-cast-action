@@ -6,7 +6,7 @@ export const POST = frames(async (ctx) => {
   // eslint-disable-next-line no-console
   console.log('ctx', ctx);
   const state = JSON.parse(ctx?.message?.state ? ctx?.message.state : '{}');
-  const address = state.address;
+  const address = state.custodialAddress;
   return transaction({
     params: {
       value: parseGwei('1000000').toString(),
@@ -15,6 +15,6 @@ export const POST = frames(async (ctx) => {
       abi: []
     },
     method: 'eth_sendTransaction',
-    chainId: 'eip155:10'
+    chainId: 'eip155:8453'
   });
 });
