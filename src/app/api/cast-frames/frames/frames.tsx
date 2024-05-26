@@ -3,6 +3,6 @@ import { createFrames } from 'frames.js/next';
 import { appURL } from '@/utils';
 
 export const frames = createFrames({
-  baseUrl: `${appURL()}/frames-hojayega/frames`,
+  baseUrl: `${appURL()}/api/cast-frames/frames`,
   middleware: [farcasterHubContext()]
 });

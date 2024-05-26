@@ -6,7 +6,7 @@ import { frames } from '../../frames';
 
 export const GET = async () => {
   const actionMetadata: ActionMetadata = {
-    aboutUrl: `${appURL()}/frames-hojayega/`,
+    aboutUrl: `${appURL()}/api/cast-frames/`,
     action: {
       type: 'post'
     },
@@ -20,7 +20,7 @@ export const GET = async () => {
 
 export const POST = frames(async () => {
   return Response.json({
-    frameUrl: `${tunnelUrl}/frames-hojayega/test/1`,
+    frameUrl: `${tunnelUrl}/api/cast-frames/frame/1`,
     type: 'frame'
   });
 });
