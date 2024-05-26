@@ -1,14 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 
 /* eslint-disable react/jsx-key */
-import { tunnelUrl } from '@/data';
-import { frames } from '../../frames/frames';
 import { Button } from 'frames.js/next';
+import { tunnelUrl } from '@/data';
 
+import { frames } from '../../frames/frames';
+// @ts-ignore
 const handler = frames(async (ctx) => {
   const frameId = ctx.url.pathname.replace('/frames-hojayega/test/', '');
   return getFrameById(parseInt(frameId), ctx);
 });
+
 const gatingOptions = (ctx: any, state: any) => {
   if (!ctx.message?.requesterFollowsCaster) {
     return {
@@ -27,18 +29,18 @@ const gatingOptions = (ctx: any, state: any) => {
   }
   // handle state here also
   return {
-    image: <span>Add any external redirect link to the frame</span>,
     buttons: [
       <Button
-        action="post"
         target={`${tunnelUrl}/frames-hojayega/test/generate`}
+        action="post"
       >
         Continue
       </Button>,
-      <Button action="post" target={`${tunnelUrl}/frames-hojayega/test/` + 3}>
+      <Button target={`${tunnelUrl}/frames-hojayega/test/` + 3} action="post">
         Skip
       </Button>
     ],
+    image: <span>Add any external redirect link to the frame</span>,
     textInput: 'Add URL'
   };
 };
@@ -46,48 +48,55 @@ const gatingOptions = (ctx: any, state: any) => {
 const getFrameById = (frameId: number, ctx: any) => {
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
+
   if (frameId === 1) {
     return {
-      image: <span>Generate your AI image</span>,
       buttons: [
-        <Button action="post" target={`${tunnelUrl}/api/ai-gen`}>
+        <Button
+          target={`${tunnelUrl}/api/ai-gen`}
+          key="generateButton1"
+          action="post"
+        >
           Generate (1/5)
         </Button>,
         <Button
+          target={`${tunnelUrl}/frames-hojayega/test/${newFrameId}`}
+          key="mintButton1"
           action="post"
-          target={`${tunnelUrl}/frames-hojayega/test/` + newFrameId}
         >
-          Let's Mint
+          Let&apos;s Mint
         </Button>
       ],
+      image: <span>Generate your AI image</span>,
       state: { generateCount: 1 }
     };
   } else if (frameId === 2) {
     return gatingOptions(ctx, state);
   } else if (frameId === 3) {
     return {
-      image: <span>No of mints</span>,
       buttons: [
         <Button
+          target={`${tunnelUrl}/frames-hojayega/test/${newFrameId}`}
+          key="continueButton3"
           action="post"
-          target={`${tunnelUrl}/frames-hojayega/test/` + newFrameId}
         >
           Continue
         </Button>
       ],
-      textInput: 'No of Mints',
       state: {
         ...state
-      }
+      },
+      image: <span>No of mints</span>,
+      textInput: 'No of Mints'
     };
   } else if (frameId === 4) {
     const noOfMints = ctx.message.inputText;
     return {
-      image: <span>Top up gas 0.001 ETH</span>,
       buttons: [
         <Button
+          target={`${tunnelUrl}/frames-hojayega/test/${newFrameId}`}
+          key="continueButton4"
           action="post"
-          target={`${tunnelUrl}/frames-hojayega/test/` + newFrameId}
         >
           Continue
         </Button>
@@ -95,35 +104,38 @@ const getFrameById = (frameId: number, ctx: any) => {
       state: {
         ...state,
         NoOfMints: noOfMints
-      }
+      },
+      image: <span>Top up gas 0.001 ETH</span>
     };
   } else if (frameId === 5) {
-    const ImageURL = state.imageUrl;
+    const imageUrl = state.imageUrl;
     return {
-      image: ImageURL,
       buttons: [
         <Button
+          target={`${tunnelUrl}/frames-hojayega/test/${newFrameId}`}
+          key="createFrameButton"
           action="post"
-          target={`${tunnelUrl}/frames-hojayega/test/` + newFrameId}
         >
           Create Frame
         </Button>
       ],
-      textInput: 'Name of the Mint'
+      textInput: 'Name of the Mint',
+      image: imageUrl
     };
   } else if (frameId === 6) {
     // hit api here to create frame from poster
     // add name also
     return {
-      image: <span>Share your created frame</span>,
       buttons: [
         <Button
+          target={`${tunnelUrl}/frames-hojayega/test/${newFrameId}`}
+          key="shareFrameButton"
           action="post"
-          target={`${tunnelUrl}/frames-hojayega/test/` + newFrameId}
         >
           Share your frame link
         </Button>
-      ]
+      ],
+      image: <span>Share your created frame</span>
     };
   }
 };

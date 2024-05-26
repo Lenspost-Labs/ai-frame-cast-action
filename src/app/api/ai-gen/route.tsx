@@ -20,7 +20,7 @@ const fnQueueFalAPI = async (message: string) => {
 };
 
 const handler = frames(async (ctx) => {
-  const state = JSON.parse(ctx.message.state);
+  const state = JSON.parse(ctx?.message?.state ? ctx?.message.state : '{}');
   const count = state.generateCount + 1;
   const prompt = ctx.message?.inputText as string;
   const res = await fnQueueFalAPI(prompt);

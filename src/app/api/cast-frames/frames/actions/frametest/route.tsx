@@ -1,17 +1,18 @@
-import { tunnelUrl } from '@/data';
-import { appURL } from '../../../../../utils/common';
-import { frames } from '../../frames';
 import { ActionMetadata } from 'frames.js';
+import { tunnelUrl } from '@/data';
+import { appURL } from '@/utils';
+
+import { frames } from '../../frames';
 
 export const GET = async () => {
   const actionMetadata: ActionMetadata = {
+    aboutUrl: `${appURL()}/frames-hojayega/`,
     action: {
       type: 'post'
     },
-    icon: 'number',
+    description: 'Mint a new frame.',
     name: 'Mint a new Frame',
-    aboutUrl: `${appURL()}/frames-hojayega/`,
-    description: 'Mint a new frame.'
+    icon: 'number'
   };
 
   return Response.json(actionMetadata);
@@ -19,7 +20,7 @@ export const GET = async () => {
 
 export const POST = frames(async () => {
   return Response.json({
-    type: 'frame',
-    frameUrl: `${tunnelUrl}/frames-hojayega/test/1`
+    frameUrl: `${tunnelUrl}/frames-hojayega/test/1`,
+    type: 'frame'
   });
 });
