@@ -1,7 +1,6 @@
+import { frames } from '@/app/cast-frames/frames/frames';
 import { Button } from 'frames.js/next';
 import { tunnelUrl } from '@/data';
-
-import { frames } from '../cast-frames/frames/frames';
 
 const fnQueueFalAPI = async (message: string) => {
   const falApiKey =

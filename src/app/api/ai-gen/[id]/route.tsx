@@ -1,7 +1,6 @@
+import { frames } from '@/app/cast-frames/frames/frames';
 import { Button } from 'frames.js/next';
 import { tunnelUrl } from '@/data';
-
-import { frames } from '../../cast-frames/frames/frames';
 
 const fnGetStatusAPI = async (request_id: string) => {
   const falApiKey =
@@ -32,6 +31,7 @@ const falGetImageAPI = async (response_url: string) => {
   return response.json();
 };
 
+// @ts-ignore
 const handler = frames(async (ctx) => {
   // @ts-ignore
   const imageId: string = JSON.parse(ctx?.state).imageId || '';
@@ -121,7 +121,7 @@ const handler = frames(async (ctx) => {
             Generate 4/5
           </Button>,
           <Button
-            target={`${tunnelUrl}/api/cast-frames/frame/2`}
+            target={`${tunnelUrl}/cast-frames/frame/2`}
             key="mintButton4"
             action="post"
           >
@@ -147,7 +147,7 @@ const handler = frames(async (ctx) => {
             Generate 5/5
           </Button>,
           <Button
-            target={`${tunnelUrl}/api/cast-frames/frame/2`}
+            target={`${tunnelUrl}/cast-frames/frame/2`}
             key="mintButton5"
             action="post"
           >

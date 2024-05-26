@@ -7,26 +7,27 @@ import { tunnelUrl } from '@/data';
 import { frames } from '../../frames/frames';
 // @ts-ignore
 const handler = frames(async (ctx) => {
-  const frameId = ctx.url.pathname.replace('api/cast-frames/frame/', '');
+  const frameId = ctx.url.pathname.replace('/cast-frames/frame/', '');
   return getFrameById(parseInt(frameId), ctx);
 });
 
 const getFrameById = (frameId: number, ctx: any) => {
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
-
+  // eslint-disable-next-line no-console
+  console.log('state', state);
   if (frameId === 1) {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/api/ai-gen`}
+          target={`${tunnelUrl}/ai-gen`}
           key="generateButton1"
           action="post"
         >
           Generate (1/5)
         </Button>,
         <Button
-          target={`${tunnelUrl}/api/cast-frames/frame/${newFrameId}`}
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
           key="mintButton1"
           action="post"
         >
@@ -42,7 +43,7 @@ const getFrameById = (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/api/cast-frames/frame/${newFrameId}`}
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
           key="continueButton3"
           action="post"
         >
@@ -60,7 +61,7 @@ const getFrameById = (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/api/cast-frames/frame/${newFrameId}`}
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
           key="continueButton4"
           action="post"
         >
@@ -78,7 +79,7 @@ const getFrameById = (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/api/cast-frames/frame/${newFrameId}`}
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
           key="createFrameButton"
           action="post"
         >
@@ -89,12 +90,12 @@ const getFrameById = (frameId: number, ctx: any) => {
       image: imageUrl
     };
   } else if (frameId === 9) {
-    // hit api here to create frame from poster
+    // hit  here to create frame from poster
     // add name also
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/api/cast-frames/frame/${newFrameId}`}
+          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
           key="shareFrameButton"
           action="post"
         >
