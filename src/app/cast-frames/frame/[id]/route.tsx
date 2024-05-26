@@ -14,8 +14,6 @@ const handler = frames(async (ctx) => {
 const getFrameById = (frameId: number, ctx: any) => {
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
-  // eslint-disable-next-line no-console
-  console.log('state', state);
   if (frameId === 1) {
     return {
       buttons: [
