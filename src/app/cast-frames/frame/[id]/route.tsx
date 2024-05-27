@@ -170,7 +170,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
       textInput: 'No of Mints'
     };
   } else if (frameId === 7) {
-    const noOfMints = ctx.message.textInput;
+    const allowedMints = ctx.message.textInput as number;
     return {
       buttons: [
         <Button
@@ -184,7 +184,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
       ],
       state: {
         ...state,
-        NoOfMints: noOfMints
+        allowedMints: allowedMints
       },
       image: <span>Top up gas 0.001 ETH</span>
     };
@@ -206,12 +206,28 @@ const getFrameById = async (frameId: number, ctx: any) => {
   } else if (frameId === 9) {
     // hit  here to create frame from poster
     // add name also
+    const state = ctx.state || {};
+    const createFrameBody = {
+      contractAddress: state.custodialAddress,
+      redirectLink: state.redirectLink,
+      allowedMints: state.allowedMints,
+      evm_address: state.evm_address,
+      fid: ctx.message.requesterFid,
+      gatedCollections: 'farcaster',
+      gatedChannels: 'farcaster',
+      isRecast: state.recast,
+      isFollow: state.follow,
+      isLike: state.like,
+      isTopUp: true,
+      canvasId: 1,
+      chainId: 1
+    };
     return {
       buttons: [
         <Button
           target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
           key="shareFrameButton"
-          action="post"
+          action="post_redirect"
         >
           Share your frame link
         </Button>
