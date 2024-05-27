@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { tunnelUrl } from '@/data/constant';
+import { APP_URL } from '@/data/constant';
 
 export async function POST(req: NextRequest) {
   return new NextResponse(
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
           <meta name="fc:frame:image" content="<div>Poster Cast Action </div>" />
           <meta name="fc:frame:button:1" content="Reload" />
           <meta name="fc:frame:button:1:action" content="post_redirect" />
-          <meta name="fc:frame:button:1:target" content="${tunnelUrl}/cast-frames/frames/actions/frame-test" />
+          <meta name="fc:frame:button:1:target" content="${APP_URL}/cast-frames/frames/actions/frame-test" />
         </head>
         <body/>
       </html>`,

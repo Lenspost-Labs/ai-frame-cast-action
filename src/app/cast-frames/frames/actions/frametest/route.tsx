@@ -1,12 +1,11 @@
 import { ActionMetadata } from 'frames.js';
-import { tunnelUrl } from '@/data';
-import { appURL } from '@/utils';
+import { APP_URL } from '@/data';
 
 import { frames } from '../../frames';
 
 export const GET = async () => {
   const actionMetadata: ActionMetadata = {
-    aboutUrl: `${appURL()}/cast-frames/`,
+    aboutUrl: `${APP_URL}/cast-frames/`,
     action: {
       type: 'post'
     },
@@ -20,7 +19,7 @@ export const GET = async () => {
 
 export const POST = frames(async () => {
   return Response.json({
-    frameUrl: `${tunnelUrl}/cast-frames/frame/1`,
+    frameUrl: `${APP_URL}/cast-frames/frame/1`,
     type: 'frame'
   });
 });

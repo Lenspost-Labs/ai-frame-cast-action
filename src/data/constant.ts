@@ -8,7 +8,7 @@ export const ENV = process.env.NODE_ENV;
 // Application
 export const APP_NAME = '';
 export const APP_DESCRIPTION = `${APP_NAME} `;
-export const APP_URL = '';
+export const APP_URL = 'https://cast-frames.vercel.app';
 export const AUTHOR = 'Lenspost labs';
 
 // Lenspost labs
@@ -21,7 +21,6 @@ export const LENSPOST_HOME_URL = 'https://poster.fun';
 export const LENSPOST_TWITTER_USERNAME = '@Lenspostxyz';
 export const FAL_API_KEY = process.env.NEXT_PUBLIC_FAL_API_KEY;
 // URLs
-export const tunnelUrl = 'https://98ab-103-216-213-71.ngrok-free.app';
 export const BACKEND_ENDPOINT = BACKEND_API[ENV as keyof typeof BACKEND_API];
 export const S3_IMAGE_URL = 'https://lenspost.s3.ap-south-1.amazonaws.com';
 export const CDN_IMAGE_URL = 'https://lenspost.b-cdn.net';

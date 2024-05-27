@@ -1,8 +1,8 @@
 import { farcasterHubContext } from 'frames.js/middleware';
 import { createFrames } from 'frames.js/next';
-import { appURL } from '@/utils';
+import { APP_URL } from '@/data';
 
 export const frames = createFrames({
-  baseUrl: `${appURL()}/cast-frames/frames`,
+  baseUrl: `${APP_URL}/cast-frames/frames`,
   middleware: [farcasterHubContext()]
 });

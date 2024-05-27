@@ -2,7 +2,7 @@
 
 /* eslint-disable react/jsx-key */
 import { Button } from 'frames.js/next';
-import { tunnelUrl } from '@/data';
+import { APP_URL } from '@/data';
 
 import { frames } from '../../frames/frames';
 // @ts-ignore
@@ -26,14 +26,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/api/ai-gen`}
+          target={`${APP_URL}/api/ai-gen`}
           key="generateButton"
           action="post"
         >
           Generate (1/5)
         </Button>,
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="mintButton"
           action="post"
         >
@@ -48,14 +48,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="yesButton"
           action="post"
         >
           Yes
         </Button>,
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="noButton"
           action="post"
         >
@@ -76,14 +76,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="yesButton"
           action="post"
         >
           Yes
         </Button>,
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="noButton"
           action="post"
         >
@@ -104,14 +104,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="yesButton"
           action="post"
         >
           Yes
         </Button>,
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="noButton"
           action="post"
         >
@@ -132,14 +132,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="yesButton"
           action="post"
         >
           Submit
         </Button>,
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="noButton"
           action="post"
         >
@@ -156,7 +156,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="continueButton3"
           action="post"
         >
@@ -174,8 +174,8 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          post_url={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
-          target={`${tunnelUrl}/api/tx-send`}
+          post_url={`${APP_URL}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/api/tx-send`}
           key="continueButton4"
           action="tx"
         >
@@ -193,7 +193,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="createFrameButton"
           action="post"
         >
@@ -225,7 +225,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
     return {
       buttons: [
         <Button
-          target={`${tunnelUrl}/cast-frames/frame/${newFrameId}`}
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
           key="shareFrameButton"
           action="post_redirect"
         >

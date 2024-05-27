@@ -1,12 +1,12 @@
 import { frames } from '@/app/cast-frames/frames/frames';
+import { FAL_API_KEY, APP_URL } from '@/data';
 import { Button } from 'frames.js/next';
-import { FAL_API_KEY, tunnelUrl } from '@/data';
 
 const fnQueueFalAPI = async (message: string) => {
   const response = await fetch('https://queue.fal.run/fal-ai/fast-sdxl', {
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Key ${FAL_API_KEY}`
+      Authorization: `Key ${FAL_API_KEY}`,
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       prompt: message
@@ -25,7 +25,7 @@ const handler = frames(async (ctx) => {
   return {
     buttons: [
       <Button
-        target={`${tunnelUrl}/api/ai-gen/${imageId}`}
+        target={`${APP_URL}/api/ai-gen/${imageId}`}
         action="post"
         key="status"
       >
