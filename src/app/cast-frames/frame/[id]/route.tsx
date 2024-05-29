@@ -1,18 +1,22 @@
+/* eslint-disable no-console */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
 import { Button } from 'frames.js/next';
 import { APP_URL } from '@/data';
+
 import { frames } from '../../frames/frames';
 
 const fidToConnectedAddressMap = new Map<number, string>();
-export const storeFidToConnectedAddressMap = (fid: number, connectedAddress: string) => {
+export const storeFidToConnectedAddressMap = (
+  fid: number,
+  connectedAddress: string
+) => {
   fidToConnectedAddressMap.set(fid, connectedAddress);
-}
+};
 
 export const getConnectedAddressByFid = (fid: number) => {
   return fidToConnectedAddressMap.get(fid);
-}
-
+};
 
 export const POST = frames(async (ctx) => {
   const frameId = ctx.url.pathname.replace('/cast-frames/frame/', '');
@@ -33,10 +37,10 @@ const getFrameById = async (frameId: number, ctx: any) => {
           action="post"
         >
           Generate (1/5)
-        </Button>,
+        </Button>
       ],
-      state: { generateCount: 1, ...state },
       image: <span>Generate your AI image</span>,
+      state: { generateCount: 1, ...state },
       textInput: 'Enter your prompt'
     };
   } else if (frameId === 2) {
@@ -148,6 +152,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
       }
     };
   } else if (frameId === 6) {
+    if (ctx.message.buttonIndex === 1 && ctx.message.inputText !== '') {
+      state.redirectLink = ctx.message.inputText;
+    }
     const address = await fetch(
       `https://dev.poster.fun/mint/by-fid?fid=${fid}`,
       {
@@ -156,9 +163,6 @@ const getFrameById = async (frameId: number, ctx: any) => {
     );
     const { publicAddress } = await address.json();
     state.custodialAddress = publicAddress;
-    if (ctx.message.textInput !== '') {
-      state.redirectLink = ctx.message.textInput;
-    }
     return {
       buttons: [
         <Button
@@ -176,10 +180,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
       textInput: 'No of Mints'
     };
   } else if (frameId === 7) {
-    const allowedMints = ctx.message.textInput as number;
-    state.allowedMints = allowedMints;
+    const allowedMints = ctx.message.inputText as string;
+    state.allowedMints = parseInt(allowedMints);
     state.evmAddress = '';
-    console.log(state, 'inside frame 7')
     return {
       buttons: [
         <Button
@@ -187,15 +190,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
           target={`${APP_URL}/api/tx-send`}
           key="continueButton4"
           action="tx"
-
         >
           Continue
         </Button>
       ],
+      image: <span>Top up gas 0.001 ETH</span>,
       state: {
         ...state
-      },
-      image: <span>Top up gas 0.001 ETH</span>
+      }
     };
   } else if (frameId === 8) {
     const imageUrl = state.imageUrl;
@@ -218,22 +220,20 @@ const getFrameById = async (frameId: number, ctx: any) => {
       image: imageUrl
     };
   } else if (frameId === 9) {
-    // hit  here to create frame from poster
-    // add name also
     const state = ctx.state || {};
     const createFrameBody = {
       redirectLink: state?.redirectLink || '',
-      allowedMints: state.allowedMints || 1,
+      allowedMints: state?.allowedMints || 1,
+      imageUri: state.imageUrl || '',
+      gatedCollections: 'farcaster',
       evm_address: state.evmAddress,
       fid: ctx.message.requesterFid,
-      gatedCollections: 'farcaster',
       gatedChannels: 'farcaster',
       isRecast: state.recast,
       isFollow: state.follow,
       isLike: state.like,
-      isTopUp: true,
       chainId: 84532,
-      imageUri: state.imageUrl || ''
+      isTopUp: true
     };
     console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++');
     console.log(createFrameBody);
