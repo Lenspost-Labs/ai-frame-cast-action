@@ -1,28 +1,30 @@
 /* eslint-disable react/no-unescaped-entities */
-
 /* eslint-disable react/jsx-key */
 import { Button } from 'frames.js/next';
 import { APP_URL } from '@/data';
-
 import { frames } from '../../frames/frames';
-// @ts-ignore
-const handler = frames(async (ctx) => {
+
+const fidToConnectedAddressMap = new Map<number, string>();
+export const storeFidToConnectedAddressMap = (fid: number, connectedAddress: string) => {
+  fidToConnectedAddressMap.set(fid, connectedAddress);
+}
+
+export const getConnectedAddressByFid = (fid: number) => {
+  return fidToConnectedAddressMap.get(fid);
+}
+
+
+export const POST = frames(async (ctx) => {
   const frameId = ctx.url.pathname.replace('/cast-frames/frame/', '');
   return await getFrameById(parseInt(frameId), ctx);
 });
 
 const getFrameById = async (frameId: number, ctx: any) => {
+  console.log(ctx, frameId);
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
   const fid = ctx.message.requesterFid;
   if (frameId === 1) {
-    const address = await fetch(
-      `https://dev.poster.fun/mint/by-fid?fid=${fid}`,
-      {
-        method: 'GET'
-      }
-    );
-    const { publicAddress } = await address.json();
     return {
       buttons: [
         <Button
@@ -32,15 +34,8 @@ const getFrameById = async (frameId: number, ctx: any) => {
         >
           Generate (1/5)
         </Button>,
-        <Button
-          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
-          key="mintButton"
-          action="post"
-        >
-          Let&apos;s Mint
-        </Button>
       ],
-      state: { custodialAddress: publicAddress, generateCount: 1 },
+      state: { generateCount: 1, ...state },
       image: <span>Generate your AI image</span>,
       textInput: 'Enter your prompt'
     };
@@ -153,6 +148,17 @@ const getFrameById = async (frameId: number, ctx: any) => {
       }
     };
   } else if (frameId === 6) {
+    const address = await fetch(
+      `https://dev.poster.fun/mint/by-fid?fid=${fid}`,
+      {
+        method: 'GET'
+      }
+    );
+    const { publicAddress } = await address.json();
+    state.custodialAddress = publicAddress;
+    if (ctx.message.textInput !== '') {
+      state.redirectLink = ctx.message.textInput;
+    }
     return {
       buttons: [
         <Button
@@ -171,6 +177,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
     };
   } else if (frameId === 7) {
     const allowedMints = ctx.message.textInput as number;
+    state.allowedMints = allowedMints;
+    state.evmAddress = '';
+    console.log(state, 'inside frame 7')
     return {
       buttons: [
         <Button
@@ -178,18 +187,20 @@ const getFrameById = async (frameId: number, ctx: any) => {
           target={`${APP_URL}/api/tx-send`}
           key="continueButton4"
           action="tx"
+
         >
           Continue
         </Button>
       ],
       state: {
-        ...state,
-        allowedMints: allowedMints
+        ...state
       },
       image: <span>Top up gas 0.001 ETH</span>
     };
   } else if (frameId === 8) {
     const imageUrl = state.imageUrl;
+    const evmAddress = getConnectedAddressByFid(fid);
+    state.evmAddress = evmAddress;
     return {
       buttons: [
         <Button
@@ -200,6 +211,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Create Frame
         </Button>
       ],
+      state: {
+        ...state
+      },
       textInput: 'Name of the Mint',
       image: imageUrl
     };
@@ -208,10 +222,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
     // add name also
     const state = ctx.state || {};
     const createFrameBody = {
-      contractAddress: state.custodialAddress,
-      redirectLink: state.redirectLink,
-      allowedMints: state.allowedMints,
-      evm_address: state.evm_address,
+      redirectLink: state?.redirectLink || '',
+      allowedMints: state.allowedMints || 1,
+      evm_address: state.evmAddress,
       fid: ctx.message.requesterFid,
       gatedCollections: 'farcaster',
       gatedChannels: 'farcaster',
@@ -219,16 +232,24 @@ const getFrameById = async (frameId: number, ctx: any) => {
       isFollow: state.follow,
       isLike: state.like,
       isTopUp: true,
-      canvasId: 1,
-      chainId: 1
+      chainId: 84532,
+      imageUri: state.imageUrl || ''
     };
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++');
+    console.log(createFrameBody);
+    const response = await fetch('https://dev.poster.fun/util/create-frame', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(createFrameBody),
+      method: 'POST'
+    });
+    const data = await response.json();
+    console.log(data);
+    const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=http://frames.poster.fun/frame/${data.frameId}`;
     return {
       buttons: [
-        <Button
-          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
-          key="shareFrameButton"
-          action="post_redirect"
-        >
+        <Button target={`${linkToShare}`} key="shareFrameButton" action="link">
           Share your frame link
         </Button>
       ],
@@ -236,5 +257,4 @@ const getFrameById = async (frameId: number, ctx: any) => {
     };
   }
 };
-export const GET = handler;
-export const POST = handler;
+export const GET = POST;

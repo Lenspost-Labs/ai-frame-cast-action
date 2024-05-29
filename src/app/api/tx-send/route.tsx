@@ -1,12 +1,15 @@
+import { storeFidToConnectedAddressMap } from '@/app/cast-frames/frame/[id]/route';
 import { frames } from '@/app/cast-frames/frames/frames';
 import { transaction } from 'frames.js/core';
 import { parseGwei } from 'viem';
 
 export const POST = frames(async (ctx) => {
-  // eslint-disable-next-line no-console
-  console.log('ctx', ctx);
-  const state = JSON.parse(ctx?.message?.state ? ctx?.message.state : '{}');
+  // Ensure state and its properties are properly defined
+  const state = (ctx.state as any) ?? {};
   const address = state.custodialAddress;
+
+  storeFidToConnectedAddressMap(ctx.message?.requesterFid as number, ctx.message?.connectedAddress as string);
+
   return transaction({
     params: {
       value: parseGwei('1000000').toString(),
@@ -15,6 +18,6 @@ export const POST = frames(async (ctx) => {
       abi: []
     },
     method: 'eth_sendTransaction',
-    chainId: 'eip155:8453'
+    chainId: 'eip155:84532'
   });
 });

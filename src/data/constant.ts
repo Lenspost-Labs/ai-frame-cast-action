@@ -8,7 +8,8 @@ export const ENV = process.env.NODE_ENV;
 // Application
 export const APP_NAME = '';
 export const APP_DESCRIPTION = `${APP_NAME} `;
-export const APP_URL = 'https://cast-frames.vercel.app';
+// export const APP_URL = 'https://cast-frames.vercel.app';
+export const APP_URL = 'https://52fb-103-216-213-71.ngrok-free.app';
 export const AUTHOR = 'Lenspost labs';
 
 // Lenspost labs
