@@ -213,7 +213,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
       redirectLink: state?.redirectLink || '',
       allowedMints: state?.allowedMints || 1,
       metadata: {
-        name
+        name: name
       },
       imageUri: state.imageUrl || '',
       gatedCollections: 'farcaster',
