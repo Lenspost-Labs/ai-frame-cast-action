@@ -1,30 +1,17 @@
-/* eslint-disable no-console */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
+import { getConnectedAddressByFid } from '@/services';
 import { Button } from 'frames.js/next';
 import { APP_URL } from '@/data';
 
 import { frames } from '../../frames/frames';
-
-const fidToConnectedAddressMap = new Map<number, string>();
-export const storeFidToConnectedAddressMap = (
-  fid: number,
-  connectedAddress: string
-) => {
-  fidToConnectedAddressMap.set(fid, connectedAddress);
-};
-
-export const getConnectedAddressByFid = (fid: number) => {
-  return fidToConnectedAddressMap.get(fid);
-};
-
+// @ts-ignore
 export const POST = frames(async (ctx) => {
   const frameId = ctx.url.pathname.replace('/cast-frames/frame/', '');
   return await getFrameById(parseInt(frameId), ctx);
 });
 
 const getFrameById = async (frameId: number, ctx: any) => {
-  console.log(ctx, frameId);
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
   const fid = ctx.message.requesterFid;
@@ -221,9 +208,13 @@ const getFrameById = async (frameId: number, ctx: any) => {
     };
   } else if (frameId === 9) {
     const state = ctx.state || {};
+    const name = ctx.message.inputText;
     const createFrameBody = {
       redirectLink: state?.redirectLink || '',
       allowedMints: state?.allowedMints || 1,
+      metadata: {
+        name
+      },
       imageUri: state.imageUrl || '',
       gatedCollections: 'farcaster',
       evm_address: state.evmAddress,
@@ -235,8 +226,6 @@ const getFrameById = async (frameId: number, ctx: any) => {
       chainId: 84532,
       isTopUp: true
     };
-    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++');
-    console.log(createFrameBody);
     const response = await fetch('https://dev.poster.fun/util/create-frame', {
       headers: {
         'Content-Type': 'application/json'
@@ -245,7 +234,6 @@ const getFrameById = async (frameId: number, ctx: any) => {
       method: 'POST'
     });
     const data = await response.json();
-    console.log(data);
     const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=http://frames.poster.fun/frame/${data.frameId}`;
     return {
       buttons: [

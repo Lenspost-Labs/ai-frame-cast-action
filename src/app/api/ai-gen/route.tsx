@@ -16,6 +16,7 @@ const fnQueueFalAPI = async (message: string) => {
   return response.json();
 };
 
+// @ts-ignore
 const handler = frames(async (ctx) => {
   const state = JSON.parse(ctx?.message?.state ? ctx?.message.state : '{}');
   const count = state.generateCount + 1;

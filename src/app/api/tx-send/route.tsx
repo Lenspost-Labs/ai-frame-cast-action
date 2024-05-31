@@ -1,4 +1,4 @@
-import { storeFidToConnectedAddressMap } from '@/app/cast-frames/frame/[id]/route';
+import { storeFidToConnectedAddressMap } from '@/services';
 import { frames } from '@/app/cast-frames/frames/frames';
 import { transaction } from 'frames.js/core';
 import { parseGwei } from 'viem';
@@ -8,7 +8,10 @@ export const POST = frames(async (ctx) => {
   const state = (ctx.state as any) ?? {};
   const address = state.custodialAddress;
 
-  storeFidToConnectedAddressMap(ctx.message?.requesterFid as number, ctx.message?.connectedAddress as string);
+  storeFidToConnectedAddressMap(
+    ctx.message?.requesterFid as number,
+    ctx.message?.connectedAddress as string
+  );
 
   return transaction({
     params: {
