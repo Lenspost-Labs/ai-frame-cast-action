@@ -169,6 +169,24 @@ const getFrameById = async (frameId: number, ctx: any) => {
   } else if (frameId === 7) {
     const allowedMints = ctx.message.inputText as string;
     state.allowedMints = parseInt(allowedMints);
+    if (isNaN(state.allowedMints) || state.allowedMints < 1) {
+      return {
+        buttons: [
+          <Button
+            target={`${APP_URL}/cast-frames/frame/${frameId}`}
+            key="continueButton4"
+            action="post"
+          >
+            Continue
+          </Button>
+        ],
+        image: <span>No of mints needs to be atleast 1</span>,
+        state: {
+          ...state
+        },
+        textInput: 'Please enter No of Mints'
+      };
+    }
     state.evmAddress = '';
     return {
       buttons: [
@@ -209,6 +227,24 @@ const getFrameById = async (frameId: number, ctx: any) => {
   } else if (frameId === 9) {
     const state = ctx.state || {};
     const name = ctx.message.inputText;
+    if (name === '') {
+      return {
+        buttons: [
+          <Button
+            target={`${APP_URL}/cast-frames/frame/${frameId}`}
+            key="continueButton4"
+            action="post"
+          >
+            Continue
+          </Button>
+        ],
+        image: <span>Please enter a name for the mint</span>,
+        textInput: 'Enter a name for the mint',
+        state: {
+          ...state
+        }
+      };
+    }
     const createFrameBody = {
       redirectLink: state?.redirectLink || '',
       allowedMints: state?.allowedMints || 1,
