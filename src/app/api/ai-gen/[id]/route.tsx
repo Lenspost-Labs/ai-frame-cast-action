@@ -1,40 +1,20 @@
 import { frames } from '@/app/cast-frames/frames/frames';
-import { FAL_API_KEY, APP_URL } from '@/data';
+import { fnGetStatusAPI, falGetImageAPI } from '@/utils';
 import { Button } from 'frames.js/next';
-
-const fnGetStatusAPI = async (request_id: string) => {
-  const response = await fetch(
-    `https://queue.fal.run/fal-ai/fast-sdxl/requests/${request_id}/status`,
-    {
-      headers: {
-        Authorization: `Key ${FAL_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      method: 'GET'
-    }
-  );
-  return response.json();
-};
-
-const falGetImageAPI = async (response_url: string) => {
-  const response = await fetch(response_url, {
-    headers: {
-      Authorization: `Key ${FAL_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    method: 'GET'
-  });
-  return response.json();
-};
+import { APP_URL } from '@/data';
 
 // @ts-ignore
 const handler = frames(async (ctx) => {
   // @ts-ignore
   const imageId: string = ctx?.state.imageId || '';
+  // @ts-ignore
+  const state: any = JSON.parse(ctx?.message?.state);
   const res = await fnGetStatusAPI(imageId);
   const status = res?.status;
 
   if (status === 'IN_QUEUE' || status === 'IN_PROGRESS') {
+    // @ts-ignore
+    const state = JSON.parse(ctx.message.state);
     return {
       buttons: [
         <Button
@@ -42,11 +22,13 @@ const handler = frames(async (ctx) => {
           key="retryButton"
           action="post"
         >
-          Retry
+          Check Status
         </Button>
       ],
-      image: <span>Please Wait for AI Image Generation....</span>,
-      textInput: 'New Prompt'
+      image: <span>AI Image Still Generating</span>,
+      state: {
+        ...state
+      }
     };
   } else {
     const res_url = res?.response_url;

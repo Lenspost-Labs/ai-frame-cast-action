@@ -1,4 +1,5 @@
 import { headers } from 'next/headers';
+import { FAL_API_KEY } from '@/data';
 
 export function currentURL(pathname: string): URL {
   const headersList = headers();
@@ -30,3 +31,30 @@ export function vercelURL() {
     ? `https://${process.env.VERCEL_URL}`
     : undefined;
 }
+
+//@ts-ignore
+export const fnGetStatusAPI = async (request_id: string) => {
+  const response = await fetch(
+    `https://queue.fal.run/fal-ai/fast-sdxl/requests/${request_id}/status`,
+    {
+      headers: {
+        Authorization: `Key ${FAL_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      method: 'GET'
+    }
+  );
+  return response.json();
+};
+
+//@ts-ignore
+export const falGetImageAPI = async (response_url: string) => {
+  const response = await fetch(response_url, {
+    headers: {
+      Authorization: `Key ${FAL_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  });
+  return response.json();
+};
