@@ -1,22 +1,28 @@
-import { storeFidToConnectedAddressMap } from '@/services';
+import {
+  calculateTransactionFeeForMints,
+  storeFidToConnectedAddressMap
+} from '@/services';
 import { frames } from '@/app/cast-frames/frames/frames';
 import { transaction } from 'frames.js/core';
-import { parseGwei } from 'viem';
 
 export const POST = frames(async (ctx) => {
-  // Ensure state and its properties are properly defined
   const state = (ctx.state as any) ?? {};
   const address = state.custodialAddress;
-
   storeFidToConnectedAddressMap(
     ctx.message?.requesterFid as number,
     ctx.message?.connectedAddress as string
   );
-
+  const fee = await calculateTransactionFeeForMints({
+    publicAddress: state.custodialAddress,
+    account: state.connectedAddress,
+    mints: state.allowedMints,
+    balance: state.balance,
+    chainId: 84532
+  });
   return transaction({
     params: {
-      value: parseGwei('1000000').toString(),
       to: address,
+      value: fee,
       data: '0x',
       abi: []
     },

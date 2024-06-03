@@ -18,7 +18,8 @@
     "frames.js": "^0.16.2",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "viem": "^2.13.3"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.15",

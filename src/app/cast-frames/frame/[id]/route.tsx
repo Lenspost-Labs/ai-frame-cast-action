@@ -1,6 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
-import { getConnectedAddressByFid } from '@/services';
+import {
+  getPublicAddressAndBalance,
+  getConnectedAddressByFid,
+  createFrameApi
+} from '@/services';
 import { Button } from 'frames.js/next';
 import { APP_URL } from '@/data';
 
@@ -12,6 +16,8 @@ export const POST = frames(async (ctx) => {
 });
 
 const getFrameById = async (frameId: number, ctx: any) => {
+  // eslint-disable-next-line no-console
+  console.log(ctx);
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
   const fid = ctx.message.requesterFid;
@@ -142,14 +148,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
     if (ctx.message.buttonIndex === 1 && ctx.message.inputText !== '') {
       state.redirectLink = ctx.message.inputText;
     }
-    const address = await fetch(
-      `https://dev.poster.fun/mint/by-fid?fid=${fid}`,
-      {
-        method: 'GET'
-      }
-    );
-    const { publicAddress } = await address.json();
+    const { publicAddress, balance } = await getPublicAddressAndBalance(fid);
     state.custodialAddress = publicAddress;
+    state.balance = balance;
     return {
       buttons: [
         <Button
@@ -199,7 +200,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Continue
         </Button>
       ],
-      image: <span>Top up gas 0.001 ETH</span>,
+      image: <span>Top up gas ETH</span>,
       state: {
         ...state
       }
@@ -262,14 +263,25 @@ const getFrameById = async (frameId: number, ctx: any) => {
       chainId: 84532,
       isTopUp: true
     };
-    const response = await fetch('https://dev.poster.fun/util/create-frame', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(createFrameBody),
-      method: 'POST'
-    });
-    const data = await response.json();
+    const data = await createFrameApi(createFrameBody);
+    if (data.frameId === undefined) {
+      return {
+        buttons: [
+          <Button
+            target={`${APP_URL}/cast-frames/frame/9`}
+            key="continueButton4"
+            action="post"
+          >
+            Retry
+          </Button>
+        ],
+        image: <span>Please retry there was some error</span>,
+        textInput: 'Enter a name for the mint',
+        state: {
+          ...state
+        }
+      };
+    }
     const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=http://frames.poster.fun/frame/${data.frameId}`;
     return {
       buttons: [
