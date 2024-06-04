@@ -5,5 +5,5 @@ export const framesConfig = {
     mode === 'development'
       ? 'https://dev-frames.vercel.app/frame'
       : 'https://frames.poster.fun/frame',
-  chainId: mode === 'development' ? 84532 : 8432
+  chainId: mode === 'development' ? 84532 : 8453
 };
