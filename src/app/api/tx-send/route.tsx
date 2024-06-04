@@ -4,6 +4,7 @@ import {
 } from '@/services';
 import { frames } from '@/app/cast-frames/frames/frames';
 import { transaction } from 'frames.js/core';
+import { framesConfig } from '@/data/config';
 
 export const POST = frames(async (ctx) => {
   const state = (ctx.state as any) ?? {};
@@ -15,9 +16,9 @@ export const POST = frames(async (ctx) => {
   const fee = await calculateTransactionFeeForMints({
     publicAddress: state.custodialAddress,
     account: state.connectedAddress,
+    chainId: framesConfig.chainId,
     mints: state.allowedMints,
-    balance: state.balance,
-    chainId: 84532
+    balance: state.balance
   });
   return transaction({
     params: {
@@ -26,7 +27,7 @@ export const POST = frames(async (ctx) => {
       data: '0x',
       abi: []
     },
-    method: 'eth_sendTransaction',
-    chainId: 'eip155:84532'
+    chainId: `eip155:${framesConfig.chainId}`,
+    method: 'eth_sendTransaction'
   });
 });

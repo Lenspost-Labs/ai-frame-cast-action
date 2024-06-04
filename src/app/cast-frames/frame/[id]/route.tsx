@@ -5,6 +5,7 @@ import {
   getConnectedAddressByFid,
   createFrameApi
 } from '@/services';
+import { framesConfig } from '@/data/config';
 import { Button } from 'frames.js/next';
 import { APP_URL } from '@/data';
 
@@ -256,11 +257,11 @@ const getFrameById = async (frameId: number, ctx: any) => {
       gatedCollections: 'farcaster',
       evm_address: state.evmAddress,
       fid: ctx.message.requesterFid,
+      chainId: framesConfig.chainId,
       gatedChannels: 'farcaster',
       isRecast: state.recast,
       isFollow: state.follow,
       isLike: state.like,
-      chainId: 84532,
       isTopUp: true
     };
     const data = await createFrameApi(createFrameBody);
@@ -282,7 +283,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
         }
       };
     }
-    const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=http://frames.poster.fun/frame/${data.frameId}`;
+    const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=${framesConfig.framesURL}/${data.frameId}`;
     return {
       buttons: [
         <Button target={`${linkToShare}`} key="shareFrameButton" action="link">
