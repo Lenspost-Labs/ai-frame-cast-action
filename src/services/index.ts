@@ -107,8 +107,7 @@ export const calculateTransactionFeeForMints = async ({
 
     const balanceInEther = Number(balance);
     const totalTransactionFeeInEther = totalTransactionFee;
-    const remainingBalance = balanceInEther - totalTransactionFeeInEther;
-
+    const remainingBalance = totalTransactionFeeInEther - balanceInEther;
     return String(remainingBalance);
   } catch (error) {
     throw error;
