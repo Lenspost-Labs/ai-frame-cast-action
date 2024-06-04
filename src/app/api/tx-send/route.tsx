@@ -5,6 +5,7 @@ import {
 import { frames } from '@/app/cast-frames/frames/frames';
 import { transaction } from 'frames.js/core';
 import { framesConfig } from '@/data/config';
+import { parseGwei } from 'viem';
 
 export const POST = frames(async (ctx) => {
   const state = (ctx.state as any) ?? {};
@@ -20,10 +21,11 @@ export const POST = frames(async (ctx) => {
     mints: state.allowedMints,
     balance: state.balance
   });
+
   return transaction({
     params: {
+      value: parseGwei(fee).toString(),
       to: address,
-      value: fee,
       data: '0x',
       abi: []
     },
