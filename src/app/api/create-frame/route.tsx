@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
+import { BACKEND_ENDPOINT } from '@/data';
 interface Body {
   gatedCollections: string;
   contractAddress: string;
@@ -17,7 +18,7 @@ interface Body {
 
 export async function POST(req: NextRequest) {
   try {
-    const url = 'https://dev.poster.fun/util/create-frame';
+    const url = `${BACKEND_ENDPOINT}/util/create-frame`;
     const body: Body = await req.json();
     if (!body) {
       return NextResponse.json({ error: 'Invalid body' }, { status: 400 });
