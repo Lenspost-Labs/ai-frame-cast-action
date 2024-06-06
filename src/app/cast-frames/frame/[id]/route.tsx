@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/jsx-key */
 import {
   getPublicAddressAndBalance,
   getConnectedAddressByFid,
@@ -17,8 +15,6 @@ export const POST = frames(async (ctx) => {
 });
 
 const getFrameById = async (frameId: number, ctx: any) => {
-  // eslint-disable-next-line no-console
-  console.log(ctx);
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
   const fid = ctx.message.requesterFid;

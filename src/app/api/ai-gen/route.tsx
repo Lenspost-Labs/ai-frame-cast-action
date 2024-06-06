@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { frames } from '@/app/cast-frames/frames/frames';
 import { fnGetStatusAPI, falGetImageAPI } from '@/utils';
 import { FAL_API_KEY, APP_URL } from '@/data';
@@ -34,7 +33,6 @@ const handler = frames(async (ctx) => {
     if (status !== 'IN_QUEUE' && status !== 'IN_PROGRESS') {
       const res_url = res?.response_url;
       const response = await falGetImageAPI(res_url);
-      const state = JSON.parse(ctx?.message?.state as string);
       const count = state.generateCount;
       const image_url = response.images[0].url;
       if (count === 2) {
