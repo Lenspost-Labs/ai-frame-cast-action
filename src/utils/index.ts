@@ -32,7 +32,6 @@ export function vercelURL() {
     : undefined;
 }
 
-//@ts-ignore
 export const fnGetStatusAPI = async (request_id: string) => {
   const response = await fetch(
     `https://queue.fal.run/fal-ai/fast-sdxl/requests/${request_id}/status`,
@@ -47,7 +46,6 @@ export const fnGetStatusAPI = async (request_id: string) => {
   return response.json();
 };
 
-//@ts-ignore
 export const falGetImageAPI = async (response_url: string) => {
   const response = await fetch(response_url, {
     headers: {

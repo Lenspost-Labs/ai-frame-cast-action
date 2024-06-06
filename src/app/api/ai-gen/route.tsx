@@ -34,8 +34,7 @@ const handler = frames(async (ctx) => {
     if (status !== 'IN_QUEUE' && status !== 'IN_PROGRESS') {
       const res_url = res?.response_url;
       const response = await falGetImageAPI(res_url);
-      // @ts-ignore
-      const state = JSON.parse(ctx.message.state);
+      const state = JSON.parse(ctx?.message?.state as string);
       const count = state.generateCount;
       const image_url = response.images[0].url;
       if (count === 2) {

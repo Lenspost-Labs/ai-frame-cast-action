@@ -5,16 +5,13 @@ import { APP_URL } from '@/data';
 
 // @ts-ignore
 const handler = frames(async (ctx) => {
-  // @ts-ignore
-  const imageId: string = ctx?.state.imageId || '';
-  // @ts-ignore
-  const state: any = JSON.parse(ctx?.message?.state);
+  const imageId: string = (ctx?.state as unknown as { imageId: string })
+    ?.imageId;
+  const state: any = JSON.parse(ctx?.message?.state as string);
   const res = await fnGetStatusAPI(imageId);
   const status = res?.status;
 
   if (status === 'IN_QUEUE' || status === 'IN_PROGRESS') {
-    // @ts-ignore
-    const state = JSON.parse(ctx.message.state);
     return {
       buttons: [
         <Button
@@ -33,8 +30,6 @@ const handler = frames(async (ctx) => {
   } else {
     const res_url = res?.response_url;
     const response = await falGetImageAPI(res_url);
-    // @ts-ignore
-    const state = JSON.parse(ctx.message.state);
     const count = state.generateCount;
     const image_url = response.images[0].url;
 
