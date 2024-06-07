@@ -1,4 +1,4 @@
-const mode = process.env.NEXT_PUBLIC_MODE || 'development';
+const mode = process.env.NODE_ENV || 'development';
 
 export const framesConfig = {
   framesURL:
