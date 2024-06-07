@@ -1,4 +1,5 @@
 import { formatEther, parseEther } from 'viem';
+import { BACKEND_API } from '@/data';
 
 import { publicClient, getChain } from './config';
 
@@ -34,7 +35,7 @@ export interface CreateFrameBody {
 
 export const createFrameApi = async (createFrameBody: CreateFrameBody) => {
   try {
-    const response = await fetch('https://dev.poster.fun/util/create-frame', {
+    const response = await fetch(`${BACKEND_API}/util/create-frame`, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -45,7 +46,6 @@ export const createFrameApi = async (createFrameBody: CreateFrameBody) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const data = await response.json();
     return data;
   } catch (error) {
@@ -59,7 +59,7 @@ export const getPublicAddressAndBalance = async (
 ) => {
   try {
     const response = await fetch(
-      `https://dev.poster.fun/mint/by-fid?fid=${fid}&chainId=${chainId}`,
+      `${BACKEND_API}/mint/by-fid?fid=${fid}&chainId=${chainId}`,
       {
         method: 'GET'
       }
