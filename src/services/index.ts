@@ -64,9 +64,12 @@ export const getPublicAddressAndBalance = async (
         method: 'GET'
       }
     );
-
+    //eslint-disable-next-line
+    console.log('response', response);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(
+        `HTTP error! status: ${JSON.stringify(response)} ${BACKEND_ENDPOINT}`
+      );
     }
 
     const { publicAddress, balance } = await response.json();
