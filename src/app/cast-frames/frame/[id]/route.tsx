@@ -200,7 +200,8 @@ const getFrameById = async (frameId: number, ctx: any) => {
       image: <span>Top up gas ETH</span>,
       state: {
         ...state
-      }
+      },
+      imageRatio: '1:1'
     };
   } else if (frameId === 8) {
     const imageUrl = state.imageUrl;
@@ -220,6 +221,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
         ...state
       },
       textInput: 'Name of the Mint',
+      imageRatio: '1:1',
       image: imageUrl
     };
   } else if (frameId === 9) {
@@ -240,7 +242,8 @@ const getFrameById = async (frameId: number, ctx: any) => {
         textInput: 'Enter a name for the mint',
         state: {
           ...state
-        }
+        },
+        imageRatio: '1:1'
       };
     }
     const createFrameBody = {
@@ -276,7 +279,8 @@ const getFrameById = async (frameId: number, ctx: any) => {
         textInput: 'Enter a name for the mint',
         state: {
           ...state
-        }
+        },
+        imageRatio: '1:1'
       };
     }
     const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=${framesConfig.framesURL}/${data.frameId}`;
@@ -286,7 +290,8 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Share your frame link
         </Button>
       ],
-      image: <span>Share your created frame</span>
+      image: <span>Share your created frame</span>,
+      imageRatio: '1:1'
     };
   }
 };

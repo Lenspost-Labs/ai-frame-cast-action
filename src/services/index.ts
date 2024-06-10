@@ -44,7 +44,9 @@ export const createFrameApi = async (createFrameBody: CreateFrameBody) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(
+        `HTTP error! status: ${response.status} ${JSON.stringify(response)} ${BACKEND_ENDPOINT}`
+      );
     }
     const data = await response.json();
     return data;
