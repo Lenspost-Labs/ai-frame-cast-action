@@ -3,7 +3,7 @@ import { FAL_API_KEY, APP_URL } from '@/data';
 import { Button } from 'frames.js/next';
 
 const fnQueueFalAPI = async (message: string) => {
-  const response = await fetch('https://fal.run/fal-ai/stable-cascade', {
+  const response = await fetch('https://fal.run/fal-ai/fast-sdxl', {
     headers: {
       Authorization: `Key ${FAL_API_KEY}`,
       'Content-Type': 'application/json'
@@ -126,7 +126,20 @@ const handler = frames(async (ctx) => {
     };
   } else {
     return {
-      image: <span>Generates Used Up!</span>
+      buttons: [
+        <Button
+          target={`${APP_URL}/cast-frames/frame/2`}
+          key="mintButton5"
+          action="post"
+        >
+          Let&apos;s Mint
+        </Button>
+      ],
+      state: {
+        generateCount: count,
+        imageUrl: image_url
+      },
+      image: image_url
     };
   }
 });

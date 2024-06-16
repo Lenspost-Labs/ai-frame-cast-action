@@ -8,7 +8,7 @@ export const ENV = process.env.NODE_ENV;
 // Application
 export const APP_NAME = '';
 export const APP_DESCRIPTION = `${APP_NAME}`;
-export const APP_URL = 'https://a7c6-103-216-213-71.ngrok-free.app';
+export const APP_URL = 'https://fe9d-103-216-213-71.ngrok-free.app';
 export const AUTHOR = 'Lenspost labs';
 
 // Lenspost labs
