@@ -9,7 +9,7 @@ export const FAL_API_KEY = process.env.NEXT_PUBLIC_FAL_API_KEY;
 // Application
 export const APP_NAME = '';
 export const APP_DESCRIPTION = `${APP_NAME}`;
-export const APP_URL = 'https://fe9d-103-216-213-71.ngrok-free.app';
+export const APP_URL = 'https://dev-poster-frame-action.vercel.app';
 export const AUTHOR = 'Lenspost labs';
 
 // Lenspost labs
