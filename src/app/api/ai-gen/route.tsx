@@ -41,9 +41,13 @@ const handler = frames(async (ctx) => {
           Let&apos;s Mint
         </Button>
       ],
+
       state: {
         generateCount: count,
         imageUrl: image_url
+      },
+      imageOptions: {
+        aspectRatio: '1:1'
       },
       textInput: 'New Prompt',
       image: image_url
@@ -69,6 +73,9 @@ const handler = frames(async (ctx) => {
       state: {
         generateCount: count,
         imageUrl: image_url
+      },
+      imageOptions: {
+        aspectRatio: '1:1'
       },
       textInput: 'New Prompt',
       image: image_url
@@ -96,6 +103,9 @@ const handler = frames(async (ctx) => {
         generateCount: count,
         imageUrl: image_url
       },
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
       textInput: 'New Prompt',
       image: image_url
     };
@@ -121,6 +131,9 @@ const handler = frames(async (ctx) => {
         generateCount: count,
         imageUrl: image_url
       },
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
       textInput: 'New Prompt',
       image: image_url
     };
@@ -138,6 +151,9 @@ const handler = frames(async (ctx) => {
       state: {
         generateCount: count,
         imageUrl: image_url
+      },
+      imageOptions: {
+        aspectRatio: '1:1'
       },
       image: image_url
     };

@@ -21,7 +21,6 @@ export const POST = frames(async (ctx) => {
     mints: state.allowedMints,
     balance: state.balance
   });
-
   return transaction({
     params: {
       value: parseEther(fee).toString(),

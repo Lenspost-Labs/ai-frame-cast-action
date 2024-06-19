@@ -29,6 +29,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Generate (1/5)
         </Button>
       ],
+
       image: <span>Generate your AI image</span>,
       state: { generateCount: 1, ...state },
       textInput: 'Enter your prompt'
@@ -51,6 +52,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
           No
         </Button>
       ],
+
       state: {
         ...state
       },
@@ -217,11 +219,13 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Create Frame
         </Button>
       ],
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
       state: {
         ...state
       },
       textInput: 'Name of the Mint',
-      imageRatio: '1:1',
       image: imageUrl
     };
   } else if (frameId === 9) {
@@ -238,12 +242,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
             Continue
           </Button>
         ],
+        imageOptions: {
+          aspectRatio: '1:1'
+        },
         image: <span>Please enter a name for the mint</span>,
         textInput: 'Enter a name for the mint',
         state: {
           ...state
-        },
-        imageRatio: '1:1'
+        }
       };
     }
     const createFrameBody = {
@@ -279,8 +285,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
         textInput: 'Enter a name for the mint',
         state: {
           ...state
-        },
-        imageRatio: '1:1'
+        }
       };
     }
     const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=${framesConfig.framesURL}/${data.frameId}`;
@@ -290,8 +295,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Share your frame link
         </Button>
       ],
-      image: <span>Share your created frame</span>,
-      imageRatio: '1:1'
+      image: <span>Share your created frame</span>
     };
   }
 };
