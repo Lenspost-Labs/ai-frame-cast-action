@@ -3,8 +3,8 @@ import {
   getConnectedAddressByFid,
   createFrameApi
 } from '@/services';
-import { framesConfig } from '@/data/config';
 import { Button } from 'frames.js/next';
+import { framesConfig } from '@/data';
 import { APP_URL } from '@/data';
 
 import { frames } from '../../frames/frames';
@@ -269,6 +269,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
       isLike: state.like,
       isTopUp: true
     };
+
     const data = await createFrameApi(createFrameBody);
     if (data.frameId === undefined) {
       return {

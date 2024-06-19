@@ -1,9 +1,9 @@
-const mode = process.env.ENVIRONMENT || 'development';
+const mode = process.env.ENVIRONMENT || 'local';
 
 export const framesConfig = {
   framesURL:
-    mode === 'development'
-      ? 'https://dev-frames.vercel.app/frame'
-      : 'https://frames.poster.fun/frame',
-  chainId: mode === 'development' ? 84532 : 8453
+    mode === 'production'
+      ? 'https://frames.poster.fun/frame'
+      : 'https://dev-frames.vercel.app/frame',
+  chainId: mode === 'production' ? 8453 : 84532
 };

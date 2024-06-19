@@ -4,7 +4,7 @@ import {
 } from '@/services';
 import { frames } from '@/app/cast-frames/frames/frames';
 import { transaction } from 'frames.js/core';
-import { framesConfig } from '@/data/config';
+import { framesConfig } from '@/data';
 import { parseEther } from 'viem';
 
 export const POST = frames(async (ctx) => {
