@@ -1,7 +1,13 @@
 import { BACKEND_API } from '.';
 
+const APP_URLS = Object.freeze({
+  development: 'https://dev-poster-frame-action.vercel.app',
+  production: 'https://poster-frame-action.vercel.app',
+  local: 'https://b5c4-49-43-161-115.ngrok-free.app'
+});
+
 // Environments
-export const ENV = process.env.NODE_ENV;
+export const ENV = process.env.ENVIRONMENT;
 
 // Environment Variables
 export const FAL_API_KEY = process.env.NEXT_PUBLIC_FAL_API_KEY;
@@ -9,7 +15,7 @@ export const FAL_API_KEY = process.env.NEXT_PUBLIC_FAL_API_KEY;
 // Application
 export const APP_NAME = '';
 export const APP_DESCRIPTION = `${APP_NAME}`;
-export const APP_URL = 'https://poster-frame-action.vercel.app';
+export const APP_URL = APP_URLS[ENV as keyof typeof APP_URLS];
 export const AUTHOR = 'Lenspost labs';
 
 // Lenspost labs
