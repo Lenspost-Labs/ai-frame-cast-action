@@ -17,7 +17,7 @@ export const APP_NAME = '';
 export const APP_DESCRIPTION = `${APP_NAME}`;
 export const APP_URL = APP_URLS[ENV as keyof typeof APP_URLS];
 export const AUTHOR = 'Lenspost labs';
-
+export const MIN_FEE = '0.0001';
 // Lenspost labs
 export const LENSPOST_APP_NAME = 'Poster';
 export const LENSPOST_DESCRIPTION = `${LENSPOST_APP_NAME} is a fun onchain 'canva' that turns NFT holders into content creators with one click drag-drop-remix! Make NFTs do more for you as you churn out DOPE memes, gifs, social content & more! The most fun way to permissionlessly collaborate, monetize & even split revenues across chains. We're NFT INFRA at the back, RAVE party in the front - powering co-creation, revenue share & social distribution with BIG MEME ENERGY!`;
