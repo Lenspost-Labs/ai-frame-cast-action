@@ -57,11 +57,12 @@ export const createFrameApi = async (createFrameBody: CreateFrameBody) => {
 
 export const getPublicAddressAndBalance = async (
   fid: number,
+  custodialAddress: `0x${string}`,
   chainId = 8453
 ) => {
   try {
     const response = await fetch(
-      `${BACKEND_ENDPOINT}/mint/by-fid?fid=${fid}&chainId=${chainId}`,
+      `${BACKEND_ENDPOINT}/mint/by-fid?fid=${fid}&chainId=${chainId}&evm_address=${custodialAddress}`,
       {
         method: 'GET'
       }

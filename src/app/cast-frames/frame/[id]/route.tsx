@@ -147,7 +147,10 @@ const getFrameById = async (frameId: number, ctx: any) => {
     if (ctx.message.buttonIndex === 1 && ctx.message.inputText !== '') {
       state.redirectLink = ctx.message.inputText;
     }
-    const { publicAddress, balance } = await getPublicAddressAndBalance(fid);
+    const { publicAddress, balance } = await getPublicAddressAndBalance(
+      fid,
+      state.custodialAddress
+    );
     state.custodialAddress = publicAddress;
     state.balance = balance;
     return {
@@ -258,9 +261,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
       metadata: {
         name: name
       },
+      evm_address: state.custodialAddress,
       imageUri: state.imageUrl || '',
       gatedCollections: 'farcaster',
-      evm_address: state.evmAddress,
       fid: ctx.message.requesterFid,
       chainId: framesConfig.chainId,
       gatedChannels: 'farcaster',
