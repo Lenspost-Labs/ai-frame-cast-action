@@ -4,11 +4,12 @@ import { BACKEND_API } from '.';
 export const ENV = process.env.NODE_ENV;
 
 // Environment Variables
+export const FAL_API_KEY = process.env.NEXT_PUBLIC_FAL_API_KEY;
 
 // Application
 export const APP_NAME = '';
 export const APP_DESCRIPTION = `${APP_NAME}`;
-export const APP_URL = 'https://cast-frames.vercel.app';
+export const APP_URL = 'https://poster-frame-action.vercel.app';
 export const AUTHOR = 'Lenspost labs';
 
 // Lenspost labs
@@ -19,7 +20,6 @@ export const LENSPOST_HOME_URL = 'https://poster.fun';
 
 // Lenspost labs social
 export const LENSPOST_TWITTER_USERNAME = '@Lenspostxyz';
-export const FAL_API_KEY = process.env.NEXT_PUBLIC_FAL_API_KEY;
 // URLs
 export const BACKEND_ENDPOINT = BACKEND_API[ENV as keyof typeof BACKEND_API];
 export const S3_IMAGE_URL = 'https://lenspost.s3.ap-south-1.amazonaws.com';
