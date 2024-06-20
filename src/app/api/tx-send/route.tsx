@@ -10,7 +10,7 @@ import { MIN_FEE } from '@/data';
 
 export const POST = frames(async (ctx) => {
   const state = (ctx.state as any) ?? {};
-  const address = state.custodialAddress;
+  const publicAddress = state.publicAddress;
 
   storeFidToConnectedAddressMap(
     ctx.message?.requesterFid as number,
@@ -18,7 +18,7 @@ export const POST = frames(async (ctx) => {
   );
 
   const fee = await calculateTransactionFeeForMints({
-    publicAddress: state.custodialAddress,
+    publicAddress: state.publicAddress,
     account: state.connectedAddress,
     chainId: framesConfig.chainId,
     mints: state.allowedMints,
@@ -33,8 +33,8 @@ export const POST = frames(async (ctx) => {
 
   return transaction({
     params: {
+      to: publicAddress,
       value: value,
-      to: address,
       data: '0x',
       abi: []
     },
