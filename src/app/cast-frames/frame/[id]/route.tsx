@@ -1,8 +1,4 @@
-import {
-  getPublicAddressAndBalance,
-  getConnectedAddressByFid,
-  createFrameApi
-} from '@/services';
+import { getPublicAddressAndBalance, createFrameApi } from '@/services';
 import { Button } from 'frames.js/next';
 import { framesConfig } from '@/data';
 import { APP_URL } from '@/data';
@@ -17,7 +13,9 @@ export const POST = frames(async (ctx) => {
 const getFrameById = async (frameId: number, ctx: any) => {
   const newFrameId = frameId + 1;
   const state = ctx.state || {};
-  const fid = ctx.message.requesterFid;
+  const fid = ctx?.message?.requesterFid;
+  const evm_address = ctx?.message?.requesterVerifiedAddresses?.[0];
+
   if (frameId === 1) {
     return {
       buttons: [
@@ -147,9 +145,13 @@ const getFrameById = async (frameId: number, ctx: any) => {
     if (ctx.message.buttonIndex === 1 && ctx.message.inputText !== '') {
       state.redirectLink = ctx.message.inputText;
     }
-    const { publicAddress, balance } = await getPublicAddressAndBalance(fid);
-    state.custodialAddress = publicAddress;
+    const { publicAddress, balance } = await getPublicAddressAndBalance(
+      fid,
+      evm_address
+    );
+    state.publicAddress = publicAddress;
     state.balance = balance;
+
     return {
       buttons: [
         <Button
@@ -187,7 +189,6 @@ const getFrameById = async (frameId: number, ctx: any) => {
         textInput: 'Please enter No of Mints'
       };
     }
-    state.evmAddress = '';
     return {
       buttons: [
         <Button
@@ -207,8 +208,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
     };
   } else if (frameId === 8) {
     const imageUrl = state.imageUrl;
-    const evmAddress = getConnectedAddressByFid(fid);
-    state.evmAddress = evmAddress;
+
     return {
       buttons: [
         <Button
@@ -260,10 +260,10 @@ const getFrameById = async (frameId: number, ctx: any) => {
       },
       imageUri: state.imageUrl || '',
       gatedCollections: 'farcaster',
-      evm_address: state.evmAddress,
       fid: ctx.message.requesterFid,
       chainId: framesConfig.chainId,
       gatedChannels: 'farcaster',
+      evm_address: evm_address,
       isRecast: state.recast,
       isFollow: state.follow,
       isLike: state.like,
