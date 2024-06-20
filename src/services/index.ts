@@ -57,18 +57,17 @@ export const createFrameApi = async (createFrameBody: CreateFrameBody) => {
 
 export const getPublicAddressAndBalance = async (
   fid: number,
-  custodialAddress: `0x${string}`,
+  evm_address: `0x${string}`,
   chainId = 8453
 ) => {
   try {
     const response = await fetch(
-      `${BACKEND_ENDPOINT}/mint/by-fid?fid=${fid}&chainId=${chainId}&evm_address=${custodialAddress}`,
+      `${BACKEND_ENDPOINT}/mint/by-fid?fid=${fid}&chainId=${chainId}&evm_address=${evm_address}`,
       {
         method: 'GET'
       }
     );
-    //eslint-disable-next-line
-    console.log('response', response);
+
     if (!response.ok) {
       throw new Error(
         `HTTP error! status: ${JSON.stringify(response)} ${BACKEND_ENDPOINT}`
