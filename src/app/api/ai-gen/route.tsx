@@ -69,7 +69,7 @@ const handler = frames(async (ctx) => {
               Generate 1/5
             </Button>,
             <Button
-              target={`${APP_URL}/frames-hojayega/test/2`}
+              target={`${APP_URL}/cast-frames/frame/2`}
               key="MintButton"
               action="post"
             >
@@ -94,7 +94,7 @@ const handler = frames(async (ctx) => {
               Generate 2/5
             </Button>,
             <Button
-              target={`${APP_URL}/frames-hojayega/test/2`}
+              target={`${APP_URL}/cast-frames/frame/2`}
               key="MintButton"
               action="post"
             >
@@ -119,7 +119,7 @@ const handler = frames(async (ctx) => {
               Generate 3/5
             </Button>,
             <Button
-              target={`${APP_URL}/frames-hojayega/test/2`}
+              target={`${APP_URL}/cast-frames/frame/2`}
               key="MintButton"
               action="post"
             >
@@ -144,7 +144,7 @@ const handler = frames(async (ctx) => {
               Generate 4/5
             </Button>,
             <Button
-              target={`${APP_URL}/frames-hojayega/test/2`}
+              target={`${APP_URL}/cast-frames/frame/2`}
               key="MintButton"
               action="post"
             >
@@ -169,7 +169,7 @@ const handler = frames(async (ctx) => {
               Generate 5/5
             </Button>,
             <Button
-              target={`${APP_URL}/frames-hojayega/test/2`}
+              target={`${APP_URL}/cast-frames/frame/2`}
               key="MintButton"
               action="post"
             >

@@ -1,7 +1,6 @@
 import { getPublicAddressAndBalance, createFrameApi } from '@/services';
+import { framesConfig, APP_URL, MIN_FEE } from '@/data';
 import { Button } from 'frames.js/next';
-import { framesConfig } from '@/data';
-import { APP_URL } from '@/data';
 
 import { frames } from '../../frames/frames';
 // @ts-ignore
@@ -149,6 +148,28 @@ const getFrameById = async (frameId: number, ctx: any) => {
       fid,
       evm_address
     );
+    if (parseFloat(MIN_FEE) - parseFloat(balance) <= 0) {
+      const imageUrl = state.imageUrl;
+      return {
+        buttons: [
+          <Button
+            target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
+            key="createFrameButton"
+            action="post"
+          >
+            Create Frame
+          </Button>
+        ],
+        imageOptions: {
+          aspectRatio: '1:1'
+        },
+        state: {
+          ...state
+        },
+        textInput: 'Name of the Mint',
+        image: imageUrl
+      };
+    }
     state.publicAddress = publicAddress;
     state.balance = balance;
 
