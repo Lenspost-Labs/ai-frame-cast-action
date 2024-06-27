@@ -198,6 +198,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
       mints: state.allowedMints,
       balance: state.balance
     });
+
     if (parseFloat(remaining_balance) <= 0) {
       const imageUrl = state.imageUrl;
       return {
