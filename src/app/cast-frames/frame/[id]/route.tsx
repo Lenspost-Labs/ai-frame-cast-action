@@ -1,7 +1,10 @@
-import { getPublicAddressAndBalance, createFrameApi } from '@/services';
+import {
+  calculateTransactionFeeForMints,
+  getPublicAddressAndBalance,
+  createFrameApi
+} from '@/services';
+import { framesConfig, APP_URL } from '@/data';
 import { Button } from 'frames.js/next';
-import { framesConfig } from '@/data';
-import { APP_URL } from '@/data';
 
 import { frames } from '../../frames/frames';
 // @ts-ignore
@@ -151,7 +154,6 @@ const getFrameById = async (frameId: number, ctx: any) => {
     );
     state.publicAddress = publicAddress;
     state.balance = balance;
-
     return {
       buttons: [
         <Button
@@ -189,6 +191,37 @@ const getFrameById = async (frameId: number, ctx: any) => {
         textInput: 'Please enter No of Mints'
       };
     }
+    const remaining_balance = await calculateTransactionFeeForMints({
+      publicAddress: state.publicAddress,
+      account: state.connectedAddress,
+      chainId: framesConfig.chainId,
+      mints: state.allowedMints,
+      balance: state.balance
+    });
+
+    if (parseFloat(remaining_balance) <= 0) {
+      const imageUrl = state.imageUrl;
+      return {
+        buttons: [
+          <Button
+            target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
+            key="createFrameButton"
+            action="post"
+          >
+            Create Frame
+          </Button>
+        ],
+        imageOptions: {
+          aspectRatio: '1:1'
+        },
+        state: {
+          ...state
+        },
+        textInput: 'Name of the Mint',
+        image: imageUrl
+      };
+    }
+
     return {
       buttons: [
         <Button
@@ -208,7 +241,6 @@ const getFrameById = async (frameId: number, ctx: any) => {
     };
   } else if (frameId === 8) {
     const imageUrl = state.imageUrl;
-
     return {
       buttons: [
         <Button
