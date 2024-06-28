@@ -45,19 +45,20 @@ const falGetImageAPI = async (response_url: string) => {
 const handler = frames(async (ctx) => {
   const startTime = Date.now();
   const state = JSON.parse(ctx?.message?.state ? ctx?.message.state : '{}');
-  const count = state.generateCount;
+  const count = state.generateCount + 1;
   const prompt = ctx.message?.inputText as string;
   const res = await fnQueueFalAPI(prompt);
   const ImageID = res?.request_id;
   while (Date.now() - startTime < 2800) {
     const statusRes = await fnGetStatusAPI(ImageID);
     const status = statusRes?.status;
-    if (status !== 'IN_QUEUE' && status !== 'IN_PROGRESS') {
+    if (status == 'IN_QUEUE' && status == 'IN_PROGRESS') {
       const res_url = res?.response_url;
       const response = await falGetImageAPI(res_url);
       const state = JSON.parse(ctx.message?.state || '{}');
       const count = state.generateCount;
       const image_url = response.images[0].url;
+
       if (count === 1) {
         return {
           buttons: [
