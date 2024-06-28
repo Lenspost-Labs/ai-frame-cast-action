@@ -25,7 +25,7 @@ export const LENSPOST_APP_URL = 'https://app.poster.fun';
 export const LENSPOST_HOME_URL = 'https://poster.fun';
 
 // Lenspost labs social
-export const LENSPOST_TWITTER_USERNAME = '@Lenspostxyz';
+export const LENSPOST_TWITTER_USERNAME = '@Posterdotfun';
 // URLs
 export const BACKEND_ENDPOINT = BACKEND_API[ENV as keyof typeof BACKEND_API];
 export const S3_IMAGE_URL = 'https://lenspost.s3.ap-south-1.amazonaws.com';
