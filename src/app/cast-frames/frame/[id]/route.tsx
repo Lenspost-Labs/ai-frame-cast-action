@@ -274,9 +274,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
             Continue
           </Button>
         ],
-        imageOptions: {
-          aspectRatio: '1:1'
-        },
+
         image: <span>Please enter a name for the mint</span>,
         textInput: 'Enter a name for the mint',
         state: {
