@@ -201,6 +201,9 @@ const handler = frames(async (ctx) => {
     state: {
       generateCount: count,
       ImageID: ImageID
+    },
+    imageOptions: {
+      aspectRatio: '1:1'
     }
   };
 });
