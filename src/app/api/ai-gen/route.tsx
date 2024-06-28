@@ -45,7 +45,7 @@ const falGetImageAPI = async (response_url: string) => {
 const handler = frames(async (ctx) => {
   const startTime = Date.now();
   const state = JSON.parse(ctx?.message?.state ? ctx?.message.state : '{}');
-  const count = state.generateCount + 1;
+  const count = state.generateCount;
   const prompt = ctx.message?.inputText as string;
   const res = await fnQueueFalAPI(prompt);
   const ImageID = res?.request_id;
