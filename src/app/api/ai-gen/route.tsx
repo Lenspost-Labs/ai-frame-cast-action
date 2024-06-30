@@ -58,6 +58,7 @@ const handler = frames(async (ctx) => {
       const state = JSON.parse(ctx.message?.state || '{}');
       const count = state.generateCount;
       const image_url = response.images[0].url;
+
       if (count === 1) {
         return {
           buttons: [

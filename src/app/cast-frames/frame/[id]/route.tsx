@@ -31,8 +31,11 @@ const getFrameById = async (frameId: number, ctx: any) => {
         </Button>
       ],
 
-      image: <span>Generate your AI image</span>,
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
       state: { generateCount: 1, ...state },
+      image: '/assets/CastActionSlides.gif',
       textInput: 'Enter your prompt'
     };
   } else if (frameId === 2) {
@@ -150,7 +153,8 @@ const getFrameById = async (frameId: number, ctx: any) => {
     }
     const { publicAddress, balance } = await getPublicAddressAndBalance(
       fid,
-      evm_address
+      evm_address,
+      framesConfig?.chainId
     );
     state.publicAddress = publicAddress;
     state.balance = balance;
@@ -326,7 +330,10 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Share your frame link
         </Button>
       ],
-      image: <span>Share your created frame</span>
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
+      image: state.imageUrl
     };
   }
 };
