@@ -3,7 +3,7 @@ import { BACKEND_API } from '.';
 const APP_URLS = Object.freeze({
   development: 'https://dev-poster-frame-action.vercel.app',
   production: 'https://poster-frame-action.vercel.app',
-  local: 'https://7b0b-49-43-161-206.ngrok-free.app'
+  local: 'https://79aa-49-43-161-3.ngrok-free.app'
 });
 
 // Environments

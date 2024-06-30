@@ -52,7 +52,7 @@ const handler = frames(async (ctx) => {
   while (Date.now() - startTime < 2800) {
     const statusRes = await fnGetStatusAPI(ImageID);
     const status = statusRes?.status;
-    if (status == 'IN_QUEUE' && status == 'IN_PROGRESS') {
+    if (status !== 'IN_QUEUE' && status !== 'IN_PROGRESS') {
       const res_url = res?.response_url;
       const response = await falGetImageAPI(res_url);
       const state = JSON.parse(ctx.message?.state || '{}');
