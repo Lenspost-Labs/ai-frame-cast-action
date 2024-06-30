@@ -208,7 +208,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
       return {
         buttons: [
           <Button
-            target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
+            target={`${APP_URL}/cast-frames/frame/9`}
             key="createFrameButton"
             action="post"
           >
