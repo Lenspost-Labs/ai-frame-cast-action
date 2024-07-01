@@ -10,8 +10,8 @@ export const GET = async () => {
       type: 'post'
     },
     description: 'Mint a new frame.',
-    name: 'Mint a new Frame',
-    icon: 'number'
+    name: 'Poster Action',
+    icon: 'image'
   };
 
   return Response.json(actionMetadata);
