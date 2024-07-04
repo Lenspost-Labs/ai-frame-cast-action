@@ -5,13 +5,14 @@ import { frames } from '../../frames';
 
 export const GET = async () => {
   const actionMetadata: ActionMetadata = {
+    description:
+      'Generate ai posters & set mint as frames RIGHT FROM YOUR FEED!',
     aboutUrl: `${APP_URL}/cast-frames/`,
     action: {
       type: 'post'
     },
-    description: 'Mint a new frame.',
     name: 'Poster Action',
-    icon: 'image'
+    icon: 'pencil'
   };
 
   return Response.json(actionMetadata);
