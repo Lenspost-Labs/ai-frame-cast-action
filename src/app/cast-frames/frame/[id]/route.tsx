@@ -35,7 +35,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
         aspectRatio: '1:1'
       },
       state: { generateCount: 1, ...state },
-      image: '/assets/CastActionSlides.gif',
+      image: '/assets/enter-prompt.gif',
       textInput: 'Enter your prompt'
     };
   } else if (frameId === 2) {
@@ -57,40 +57,15 @@ const getFrameById = async (frameId: number, ctx: any) => {
         </Button>
       ],
 
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
+      image: '/assets/pre-mint-tasks.gif',
       state: {
         ...state
-      },
-      image: <span>Add Follow</span>
+      }
     };
   } else if (frameId === 3) {
-    if (ctx.message.buttonIndex === 1) {
-      state.follow = true;
-    } else if (ctx.message.buttonIndex === 2) {
-      state.follow = false;
-    }
-    return {
-      buttons: [
-        <Button
-          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
-          key="yesButton"
-          action="post"
-        >
-          Yes
-        </Button>,
-        <Button
-          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
-          key="noButton"
-          action="post"
-        >
-          No
-        </Button>
-      ],
-      state: {
-        ...state
-      },
-      image: <span>Add Like</span>
-    };
-  } else if (frameId === 4) {
     if (ctx.message.buttonIndex === 1) {
       state.like = true;
     } else if (ctx.message.buttonIndex === 2) {
@@ -113,16 +88,50 @@ const getFrameById = async (frameId: number, ctx: any) => {
           No
         </Button>
       ],
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
+      image: '/assets/pre-mint-tasks.gif',
       state: {
         ...state
-      },
-      image: <span>Add Recast</span>
+      }
     };
-  } else if (frameId === 5) {
+  } else if (frameId === 4) {
     if (ctx.message.buttonIndex === 1) {
       state.recast = true;
     } else if (ctx.message.buttonIndex === 2) {
       state.recast = false;
+    }
+    return {
+      buttons: [
+        <Button
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
+          key="yesButton"
+          action="post"
+        >
+          Yes
+        </Button>,
+        <Button
+          target={`${APP_URL}/cast-frames/frame/${newFrameId}`}
+          key="noButton"
+          action="post"
+        >
+          No
+        </Button>
+      ],
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
+      image: '/assets/pre-mint-tasks.gif',
+      state: {
+        ...state
+      }
+    };
+  } else if (frameId === 5) {
+    if (ctx.message.buttonIndex === 1) {
+      state.follow = true;
+    } else if (ctx.message.buttonIndex === 2) {
+      state.follow = false;
     }
     return {
       buttons: [
@@ -141,8 +150,11 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Skip
         </Button>
       ],
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
       textInput: 'Enter External URL (Optional)',
-      image: <span>Add External Link</span>,
+      image: '/assets/external-link.gif',
       state: {
         ...state
       }
@@ -168,10 +180,13 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Continue
         </Button>
       ],
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
       state: {
         ...state
       },
-      image: <span>No of mints</span>,
+      image: '/assets/total-mints.gif',
       textInput: 'No of Mints'
     };
   } else if (frameId === 7) {
@@ -188,11 +203,14 @@ const getFrameById = async (frameId: number, ctx: any) => {
             Continue
           </Button>
         ],
-        image: <span>No of mints needs to be atleast 1</span>,
+        imageOptions: {
+          aspectRatio: '1:1'
+        },
         state: {
           ...state
         },
-        textInput: 'Please enter No of Mints'
+        textInput: 'Please enter No of Mints',
+        image: '/assets/minimum-1-mint.gif'
       };
     }
     const remaining_balance = await calculateTransactionFeeForMints({
@@ -237,11 +255,13 @@ const getFrameById = async (frameId: number, ctx: any) => {
           Continue
         </Button>
       ],
-      image: <span>Top up gas ETH</span>,
+      imageOptions: {
+        aspectRatio: '1:1'
+      },
       state: {
         ...state
       },
-      imageRatio: '1:1'
+      image: '/assets/sponsor-gas.gif'
     };
   } else if (frameId === 8) {
     const imageUrl = state.imageUrl;
@@ -279,8 +299,11 @@ const getFrameById = async (frameId: number, ctx: any) => {
           </Button>
         ],
 
-        image: <span>Please enter a name for the mint</span>,
+        imageOptions: {
+          aspectRatio: '1:1'
+        },
         textInput: 'Enter a name for the mint',
+        image: '/assets/name-this-poster.gif',
         state: {
           ...state
         }
@@ -316,6 +339,9 @@ const getFrameById = async (frameId: number, ctx: any) => {
             Retry
           </Button>
         ],
+        imageOptions: {
+          aspectRatio: '1:1'
+        },
         image: <span>Please retry there was some error</span>,
         textInput: 'Enter a name for the mint',
         state: {
@@ -323,7 +349,7 @@ const getFrameById = async (frameId: number, ctx: any) => {
         }
       };
     }
-    const linkToShare = `https://warpcast.com/~/compose?text=Created%20using%20Poster!&embeds[]=${framesConfig.framesURL}/${data.frameId}`;
+    const linkToShare = `https://warpcast.com/~/compose?text=made%20from%20my%20feed%20with%20%40poster%20and%20earned%207000%20%24poster!&embeds[]=${framesConfig.framesURL}/${data.frameId}`;
     return {
       buttons: [
         <Button target={`${linkToShare}`} key="shareFrameButton" action="link">

@@ -212,15 +212,14 @@ const handler = frames(async (ctx) => {
         Check Status
       </Button>
     ],
-    image:
-      'https://cdn.pixabay.com/animation/2023/01/09/18/04/18-04-38-312_512.gif',
     state: {
       generateCount: count,
       ImageID: ImageID
     },
     imageOptions: {
       aspectRatio: '1:1'
-    }
+    },
+    image: '/assets/countdown.gif'
   };
 });
 
