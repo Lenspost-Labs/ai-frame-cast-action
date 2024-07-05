@@ -1,9 +1,9 @@
 import { BACKEND_API } from '.';
 
 const APP_URLS = Object.freeze({
-  development: 'https://dev-poster-frame-action.vercel.app',
-  production: 'https://poster-frame-action.vercel.app',
-  local: 'https://fr3vl2gs-3000.inc1.devtunnels.ms'
+  local: 'https://bd9d-49-43-163-171.ngrok-free.app',
+  development: 'https://dev-cast-action.vercel.app',
+  production: 'https://cast-action.poster.fun'
 });
 
 // Environments
@@ -25,7 +25,7 @@ export const LENSPOST_APP_URL = 'https://app.poster.fun';
 export const LENSPOST_HOME_URL = 'https://poster.fun';
 
 // Lenspost labs social
-export const LENSPOST_TWITTER_USERNAME = '@Lenspostxyz';
+export const LENSPOST_TWITTER_USERNAME = 'Posterdotfun';
 // URLs
 export const BACKEND_ENDPOINT = BACKEND_API[ENV as keyof typeof BACKEND_API];
 export const S3_IMAGE_URL = 'https://lenspost.s3.ap-south-1.amazonaws.com';

@@ -58,7 +58,7 @@ export const createFrameApi = async (createFrameBody: CreateFrameBody) => {
 export const getPublicAddressAndBalance = async (
   fid: number,
   evm_address: `0x${string}`,
-  chainId = 8453
+  chainId: any
 ) => {
   try {
     const response = await fetch(
@@ -85,16 +85,16 @@ export const getPublicAddressAndBalance = async (
 };
 
 export const calculateTransactionFeeForMints = async ({
-  chainId = 8453,
   publicAddress,
   account,
+  chainId,
   balance,
   mints
 }: {
   publicAddress: `0x${string}`;
   account: `0x${string}`;
-  chainId?: number;
   balance: string;
+  chainId?: any;
   mints: number;
 }) => {
   try {

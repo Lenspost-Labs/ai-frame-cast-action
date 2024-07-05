@@ -58,6 +58,7 @@ const handler = frames(async (ctx) => {
       const state = JSON.parse(ctx.message?.state || '{}');
       const count = state.generateCount;
       const image_url = response.images[0].url;
+
       if (count === 1) {
         return {
           buttons: [
@@ -79,6 +80,9 @@ const handler = frames(async (ctx) => {
           state: {
             generateCount: count + 1,
             imageUrl: image_url
+          },
+          imageOptions: {
+            aspectRatio: '1:1'
           },
           textInput: 'New Prompt',
           image: image_url
@@ -105,6 +109,9 @@ const handler = frames(async (ctx) => {
             generateCount: count + 1,
             imageUrl: image_url
           },
+          imageOptions: {
+            aspectRatio: '1:1'
+          },
           textInput: 'New Prompt',
           image: image_url
         };
@@ -129,6 +136,9 @@ const handler = frames(async (ctx) => {
           state: {
             generateCount: count + 1,
             imageUrl: image_url
+          },
+          imageOptions: {
+            aspectRatio: '1:1'
           },
           textInput: 'New Prompt',
           image: image_url
@@ -155,6 +165,9 @@ const handler = frames(async (ctx) => {
             generateCount: count + 1,
             imageUrl: image_url
           },
+          imageOptions: {
+            aspectRatio: '1:1'
+          },
           textInput: 'New Prompt',
           image: image_url
         };
@@ -180,6 +193,9 @@ const handler = frames(async (ctx) => {
             generateCount: count + 1,
             imageUrl: image_url
           },
+          imageOptions: {
+            aspectRatio: '1:1'
+          },
           textInput: 'New Prompt',
           image: image_url
         };
@@ -196,12 +212,14 @@ const handler = frames(async (ctx) => {
         Check Status
       </Button>
     ],
-    image:
-      'https://cdn.pixabay.com/animation/2023/01/09/18/04/18-04-38-312_512.gif',
     state: {
       generateCount: count + 1,
       ImageID: ImageID
-    }
+    },
+    imageOptions: {
+      aspectRatio: '1:1'
+    },
+    image: '/assets/countdown.gif'
   };
 });
 
