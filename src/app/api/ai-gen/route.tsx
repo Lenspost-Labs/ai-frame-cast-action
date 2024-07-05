@@ -77,7 +77,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           textInput: 'New Prompt',
@@ -102,7 +102,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           textInput: 'New Prompt',
@@ -127,7 +127,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           textInput: 'New Prompt',
@@ -152,7 +152,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           textInput: 'New Prompt',
@@ -177,7 +177,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           textInput: 'New Prompt',
@@ -199,7 +199,7 @@ const handler = frames(async (ctx) => {
     image:
       'https://cdn.pixabay.com/animation/2023/01/09/18/04/18-04-38-312_512.gif',
     state: {
-      generateCount: count,
+      generateCount: count + 1,
       ImageID: ImageID
     }
   };

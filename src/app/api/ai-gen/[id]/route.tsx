@@ -72,7 +72,7 @@ const handler = frames(async (ctx) => {
           </Button>
         ],
         state: {
-          generateCount: count,
+          generateCount: count + 1,
           imageUrl: image_url
         },
         textInput: 'New Prompt',
@@ -97,7 +97,7 @@ const handler = frames(async (ctx) => {
           </Button>
         ],
         state: {
-          generateCount: count,
+          generateCount: count + 1,
           imageUrl: image_url
         },
         textInput: 'New Prompt',
@@ -122,7 +122,7 @@ const handler = frames(async (ctx) => {
           </Button>
         ],
         state: {
-          generateCount: count,
+          generateCount: count + 1,
           imageUrl: image_url
         },
         textInput: 'New Prompt',
@@ -147,7 +147,7 @@ const handler = frames(async (ctx) => {
           </Button>
         ],
         state: {
-          generateCount: count,
+          generateCount: count + 1,
           imageUrl: image_url
         },
         textInput: 'New Prompt',
@@ -172,7 +172,7 @@ const handler = frames(async (ctx) => {
           </Button>
         ],
         state: {
-          generateCount: count,
+          generateCount: count + 1,
           imageUrl: image_url
         },
         textInput: 'New Prompt',
