@@ -289,8 +289,11 @@ const getFrameById = async (frameId: number, ctx: any) => {
       isTopUp: true
     };
 
-    const data = await createFrameApi(createFrameBody);
-    if (data.frameId === undefined) {
+    let data;
+    try {
+      data = await createFrameApi(createFrameBody);
+    } catch (error) {
+      console.error('Failed to create frame:', error);
       return {
         buttons: [
           <Button
@@ -301,10 +304,10 @@ const getFrameById = async (frameId: number, ctx: any) => {
             Retry
           </Button>
         ],
+        image: <span>Failed to create frame. Please retry.</span>,
         imageOptions: {
           aspectRatio: '1:1'
         },
-        image: <span>Please retry there was some error</span>,
         textInput: 'Enter a name for the mint',
         state: {
           ...state

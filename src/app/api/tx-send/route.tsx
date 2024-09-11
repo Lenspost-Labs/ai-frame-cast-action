@@ -10,7 +10,7 @@ import { MIN_FEE } from '@/data';
 
 export const POST = frames(async (ctx) => {
   const state = (ctx.state as any) ?? {};
-  const publicAddress = state.publicAddress;
+  const publicAddress = state?.publicAddress;
 
   storeFidToConnectedAddressMap(
     ctx.message?.requesterFid as number,

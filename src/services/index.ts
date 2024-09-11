@@ -9,6 +9,9 @@ export const storeFidToConnectedAddressMap = (
   fid: number,
   connectedAddress: string
 ) => {
+  if (typeof fid !== 'number' || typeof connectedAddress !== 'string') {
+    throw new Error('Invalid types for fid or connectedAddress');
+  }
   fidToConnectedAddressMap.set(fid, connectedAddress);
 };
 
@@ -44,14 +47,16 @@ export const createFrameApi = async (createFrameBody: CreateFrameBody) => {
     });
 
     if (!response.ok) {
+      const errorResponse = await response.json();
       throw new Error(
-        `HTTP error! status: ${response.status} ${JSON.stringify(response)} ${BACKEND_ENDPOINT}`
+        `HTTP error! status: ${response.status}, message: ${errorResponse.message} ${BACKEND_ENDPOINT}`
       );
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    throw error;
+    console.error('createFrameApi', error);
+    throw new Error(`Failed to create frame: ${error}`);
   }
 };
 
@@ -69,8 +74,9 @@ export const getPublicAddressAndBalance = async (
     );
 
     if (!response.ok) {
+      const errorResponse = await response.json();
       throw new Error(
-        `HTTP error! status: ${JSON.stringify(response)} ${BACKEND_ENDPOINT}`
+        `HTTP error! status: ${response.status}, message: ${errorResponse.message} ${BACKEND_ENDPOINT}`
       );
     }
 
@@ -80,7 +86,8 @@ export const getPublicAddressAndBalance = async (
       balance
     };
   } catch (error) {
-    throw error;
+    console.error('getPublicAddressAndBalance', error);
+    throw new Error(`Failed to get public address and balance: ${error}`);
   }
 };
 
@@ -115,6 +122,7 @@ export const calculateTransactionFeeForMints = async ({
     const remainingBalance = totalTransactionFeeInEther - balanceInEther;
     return String(remainingBalance);
   } catch (error) {
-    throw error;
+    console.error('Error calculating transaction fee:', error);
+    throw new Error('Failed to calculate transaction fee');
   }
 };

@@ -3,28 +3,40 @@ import { FAL_API_KEY, APP_URL } from '@/data';
 import { Button } from 'frames.js/next';
 
 const fnGetStatusAPI = async (request_id: string) => {
-  const response = await fetch(
-    `https://queue.fal.run/fal-ai/fast-sdxl/requests/${request_id}/status`,
-    {
+  try {
+    const response = await fetch(
+      `https://queue.fal.run/fal-ai/fast-sdxl/requests/${request_id}/status`,
+      {
+        headers: {
+          Authorization: `Key ${FAL_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        method: 'GET'
+      }
+    );
+    if (!response.ok) throw new Error('Network response was not ok');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching status:', error);
+    throw error; // Rethrow the error for further handling
+  }
+};
+
+const falGetImageAPI = async (response_url: string) => {
+  try {
+    const response = await fetch(response_url, {
       headers: {
         Authorization: `Key ${FAL_API_KEY}`,
         'Content-Type': 'application/json'
       },
       method: 'GET'
-    }
-  );
-  return response.json();
-};
-
-const falGetImageAPI = async (response_url: string) => {
-  const response = await fetch(response_url, {
-    headers: {
-      Authorization: `Key ${FAL_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    method: 'GET'
-  });
-  return response.json();
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching image:', error);
+    throw error; // Rethrow the error for further handling
+  }
 };
 
 // @ts-ignore
