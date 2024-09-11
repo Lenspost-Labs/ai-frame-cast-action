@@ -3,53 +3,85 @@ import { FAL_API_KEY, APP_URL } from '@/data';
 import { Button } from 'frames.js/next';
 
 const fnQueueFalAPI = async (message: string) => {
-  const response = await fetch('https://queue.fal.run/fal-ai/fast-sdxl', {
-    headers: {
-      Authorization: `Key ${FAL_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      prompt: message
-    }),
-    method: 'POST'
-  });
-  return response.json();
+  try {
+    const response = await fetch('https://queue.fal.run/fal-ai/fast-sdxl', {
+      headers: {
+        Authorization: `Key ${FAL_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt: message
+      }),
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to queue Fal API, status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error queuing Fal API:', error);
+    throw error;
+  }
 };
 
 const fnGetStatusAPI = async (request_id: string) => {
-  const response = await fetch(
-    `https://queue.fal.run/fal-ai/fast-sdxl/requests/${request_id}/status`,
-    {
+  try {
+    const response = await fetch(
+      `https://queue.fal.run/fal-ai/fast-sdxl/requests/${request_id}/status`,
+      {
+        headers: {
+          Authorization: `Key ${FAL_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        method: 'GET'
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to get status, status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error getting status:', error);
+    throw error;
+  }
+};
+
+const falGetImageAPI = async (response_url: string) => {
+  try {
+    const response = await fetch(response_url, {
       headers: {
         Authorization: `Key ${FAL_API_KEY}`,
         'Content-Type': 'application/json'
       },
       method: 'GET'
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get image, status: ${response.status}`);
     }
-  );
-  return response.json();
+
+    return response.json();
+  } catch (error) {
+    console.error('Error getting image:', error);
+    throw error;
+  }
 };
 
-const falGetImageAPI = async (response_url: string) => {
-  const response = await fetch(response_url, {
-    headers: {
-      Authorization: `Key ${FAL_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    method: 'GET'
-  });
-  return response.json();
-};
+const MAX_WAIT_TIME = 2800; // milliseconds
 
 // @ts-ignore
 const handler = frames(async (ctx) => {
   const startTime = Date.now();
   const state = JSON.parse(ctx?.message?.state ? ctx?.message.state : '{}');
   const count = state.generateCount + 1;
-  const prompt = ctx.message?.inputText as string;
+  const prompt = ctx?.message?.inputText as string;
   const res = await fnQueueFalAPI(prompt);
   const ImageID = res?.request_id;
-  while (Date.now() - startTime < 2800) {
+  while (Date.now() - startTime < MAX_WAIT_TIME) {
     const statusRes = await fnGetStatusAPI(ImageID);
     const status = statusRes?.status;
     if (status !== 'IN_QUEUE' && status !== 'IN_PROGRESS') {
@@ -78,7 +110,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           imageOptions: {
@@ -106,7 +138,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           imageOptions: {
@@ -134,7 +166,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           imageOptions: {
@@ -162,7 +194,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           imageOptions: {
@@ -190,7 +222,7 @@ const handler = frames(async (ctx) => {
             </Button>
           ],
           state: {
-            generateCount: count,
+            generateCount: count + 1,
             imageUrl: image_url
           },
           imageOptions: {
@@ -213,7 +245,7 @@ const handler = frames(async (ctx) => {
       </Button>
     ],
     state: {
-      generateCount: count,
+      generateCount: count + 1,
       ImageID: ImageID
     },
     imageOptions: {

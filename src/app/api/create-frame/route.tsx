@@ -31,9 +31,22 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify(body),
       method: 'POST'
     });
+
+    // Check if the response is ok (status in the range 200-299)
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: 'Failed to create frame' },
+        { status: response.status }
+      );
+    }
+
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error: any) {
-    return NextResponse.json(error);
+    console.error('Error occurred:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
