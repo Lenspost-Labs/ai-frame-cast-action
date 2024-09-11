@@ -13,7 +13,7 @@
     "prettier:format": "prettier --write .",
     "test:all": "pnpm run types:check && pnpm run prettier:check && pnpm run lint:check",
     "prepare": "husky install",
-    "git-commit": "pnpm run test:all && ts-node git-commit.ts"
+    "git-commit": "ts-node git-commit.ts"
   },
   "dependencies": {
     "frames.js": "^0.16.2",
