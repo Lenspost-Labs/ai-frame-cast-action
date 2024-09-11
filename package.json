@@ -12,8 +12,7 @@
     "lint:check": "eslint . --ext ts --ext tsx --ext js",
     "prettier:format": "prettier --write .",
     "test:all": "pnpm run types:check && pnpm run prettier:check && pnpm run lint:check",
-    "prepare": "husky install",
-    "git-commit": "ts-node git-commit.ts"
+    "prepare": "husky install"
   },
   "dependencies": {
     "frames.js": "^0.16.2",
